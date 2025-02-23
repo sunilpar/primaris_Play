@@ -19,5 +19,6 @@ require (
 	github.com/creasty/defaults v1.7.0 // indirect
 	github.com/go-playground/assert/v2 v2.2.0 // indirect
 	github.com/gorilla/schema v1.4.1 // indirect
+	github.com/rs/cors v1.11.1 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 )

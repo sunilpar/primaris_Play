@@ -10,6 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/justinas/nosurf"
+	"github.com/rs/cors"
 )
 
 type contextKey string
@@ -99,4 +100,15 @@ func (app *application) requireAuth(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), userContextKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
+}
+
+var corsHandler = cors.New(cors.Options{
+	AllowedOrigins:   []string{"*"},
+	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+	AllowedHeaders:   []string{"Content-Type", "Authorization"},
+	AllowCredentials: true,
+})
+
+func (app *application) cors(next http.Handler) http.Handler {
+	return corsHandler.Handler(next)
 }

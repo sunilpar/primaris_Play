@@ -65,7 +65,7 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodPost, "/user/playlist/remove", auth.ThenFunc(app.removePlaylist))
 	router.Handler(http.MethodPost, "/user/playlist/getall", auth.ThenFunc(app.getAllPlaylist))
 
-	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
+	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders, app.cors)
 
 	return standard.Then(router)
 }
