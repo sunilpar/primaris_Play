@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/julienschmidt/httprouter"
 )
 
 type Commentform struct {
@@ -113,21 +114,16 @@ func (app *application) deleteComment(w http.ResponseWriter, r *http.Request) {
 	WriteJSON(w, 200, "comment deleted")
 }
 func (app *application) getComments(w http.ResponseWriter, r *http.Request) {
-	var form Commentform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
-
-	video_UID, err := uuid.Parse(form.Video_UID)
+	comments, err := app.comment.GetComment(id)
 	if err != nil {
-		WriteJSON(w, 400, "channel cant be empty or invalid ")
-		return
-	}
-	comments, err := app.comment.GetComment(video_UID)
-	if err != nil {
-		fmt.Printf("video_id id :%+v \n", video_UID)
+		fmt.Printf("video_id id :%+v \n", id)
 		app.serverError(w, err)
 		return
 	}

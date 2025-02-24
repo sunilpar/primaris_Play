@@ -5,8 +5,10 @@ import (
 	"github/sunilpar/yt-api/internal/models"
 	"github/sunilpar/yt-api/internal/validator"
 	"net/http"
+	"strings"
 
 	"github.com/google/uuid"
+	"github.com/julienschmidt/httprouter"
 )
 
 type VideoInsert struct {
@@ -171,19 +173,15 @@ func (app *application) changeVideoDetails(w http.ResponseWriter, r *http.Reques
 
 }
 func (app *application) getVideoByID(w http.ResponseWriter, r *http.Request) {
-	var form VideoInsert
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-	VIdeo_UID, err := uuid.Parse(form.ID)
-	if err != nil {
-		WriteJSON(w, 400, "could parse sent ID")
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
 
-	video, err := app.video.GetVideoByID(VIdeo_UID)
+	video, err := app.video.GetVideoByID(id)
 	if err != nil {
 		WriteJSON(w, 400, "could't get video by id ")
 		return
@@ -192,14 +190,14 @@ func (app *application) getVideoByID(w http.ResponseWriter, r *http.Request) {
 
 }
 func (app *application) getVideoByTitle(w http.ResponseWriter, r *http.Request) {
-	var form VideoInsert
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	title := params.ByName("title")
+	if strings.TrimSpace(title) == "" {
+		WriteJSON(w, 400, "query can't be blank")
 		return
 	}
 
-	video, err := app.video.GetVideoByTitle(form.Title)
+	video, err := app.video.GetVideoByTitle(title)
 	if err != nil {
 		WriteJSON(w, 400, "could't get video by title ")
 		return
@@ -208,20 +206,14 @@ func (app *application) getVideoByTitle(w http.ResponseWriter, r *http.Request) 
 
 }
 func (app *application) searchVideosByQuery(w http.ResponseWriter, r *http.Request) {
-	var form Query
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	query := params.ByName("query")
+	if strings.TrimSpace(query) == "" {
+		WriteJSON(w, 400, "query can't be blank")
 		return
 	}
 
-	form.CheckField(validator.NotBlank(form.Query), "query", "query cannot be blank")
-	if !form.Valid() {
-		WriteJSON(w, 401, form.FieldErrors)
-		return
-	}
-
-	videos, err := app.video.SearchVideo(form.Query)
+	videos, err := app.video.SearchVideo(query)
 	if err != nil {
 		WriteJSON(w, 400, "could't get video by title ")
 		return

@@ -17,16 +17,16 @@ func (app *application) routes() http.Handler {
 	auth := alice.New(app.requireAuth)
 
 	//make them get routes impp make session independent of cookies
-	router.Handler(http.MethodPost, "/user/video/getVideoById", dynamic.ThenFunc(app.getVideoByID))
-	router.Handler(http.MethodPost, "/user/video/getVideoByTitle", dynamic.ThenFunc(app.getVideoByTitle))
+	router.Handler(http.MethodGet, "/user/video/getVideoById/:id", dynamic.ThenFunc(app.getVideoByID))
+	router.Handler(http.MethodGet, "/user/video/getVideoByTitle/:title", dynamic.ThenFunc(app.getVideoByTitle))
 	router.Handler(http.MethodGet, "/user/getuser/:id", dynamic.ThenFunc(app.getuser))
-	router.Handler(http.MethodPost, "/user/subcription/subcount", dynamic.ThenFunc(app.Subcount))
-	router.Handler(http.MethodPost, "/user/comment/get", dynamic.ThenFunc(app.getComments))
-	router.Handler(http.MethodPost, "/user/like/get", dynamic.ThenFunc(app.getLikes))
-	router.Handler(http.MethodPost, "/user/playlist/getbyid", dynamic.ThenFunc(app.getPlaylistByID))
-	router.Handler(http.MethodPost, "/user/playlist/getbyname", dynamic.ThenFunc(app.getPlaylistByName))
-	router.Handler(http.MethodPost, "/user/video/query", dynamic.ThenFunc(app.searchVideosByQuery))
-	router.Handler(http.MethodPost, "/user/query", dynamic.ThenFunc(app.searchUserByQuery))
+	router.Handler(http.MethodGet, "/user/subcription/subcount/:id", dynamic.ThenFunc(app.Subcount))
+	router.Handler(http.MethodGet, "/user/comment/get/:id", dynamic.ThenFunc(app.getComments))
+	router.Handler(http.MethodGet, "/user/like/get/:id", dynamic.ThenFunc(app.getLikes))
+	router.Handler(http.MethodGet, "/user/playlist/getbyid/:id", dynamic.ThenFunc(app.getPlaylistByID))
+	router.Handler(http.MethodGet, "/user/playlist/getbyname/:name", dynamic.ThenFunc(app.getPlaylistByName))
+	router.Handler(http.MethodGet, "/user/video/search/:query", dynamic.ThenFunc(app.searchVideosByQuery))
+	router.Handler(http.MethodGet, "/user/search/:query", dynamic.ThenFunc(app.searchUserByQuery))
 	//user routes
 	router.Handler(http.MethodPost, "/user/signup", dynamic.ThenFunc(app.signup))
 	router.Handler(http.MethodPost, "/user/login", dynamic.ThenFunc(app.login))
@@ -45,8 +45,7 @@ func (app *application) routes() http.Handler {
 	//subscription routes
 	router.Handler(http.MethodPost, "/user/subcription/add", auth.ThenFunc(app.AddSubcription))
 	router.Handler(http.MethodPost, "/user/subcription/remove", auth.ThenFunc(app.RemoveSubcription))
-	//this should be a get route as well and make server err better give feed back to cient
-	router.Handler(http.MethodPost, "/user/subcription/isSubbed", auth.ThenFunc(app.CheckIfSubed))
+	router.Handler(http.MethodGet, "/user/subcription/isSubbed/:id", auth.ThenFunc(app.CheckIfSubed))
 	//comments routes
 	router.Handler(http.MethodPost, "/user/comment/insert", auth.ThenFunc(app.addComment))
 	router.Handler(http.MethodPost, "/user/comment/update", auth.ThenFunc(app.updateComment))

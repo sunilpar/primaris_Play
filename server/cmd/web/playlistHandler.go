@@ -5,8 +5,10 @@ import (
 	"github/sunilpar/yt-api/internal/models"
 	"github/sunilpar/yt-api/internal/validator"
 	"net/http"
+	"strings"
 
 	"github.com/google/uuid"
+	"github.com/julienschmidt/httprouter"
 )
 
 type Playlistform struct {
@@ -119,21 +121,17 @@ func (app *application) addVideos(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) getPlaylistByID(w http.ResponseWriter, r *http.Request) {
-	var form Playlistform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-	playlist_uid, err := uuid.Parse(form.Playlist_uid)
-	if err != nil {
-		WriteJSON(w, 400, "channel cant be empty or invalid ")
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
 
-	playlist, err := app.playlist.GetPlaylistByID(playlist_uid)
+	playlist, err := app.playlist.GetPlaylistByID(id)
 	if err != nil {
-		fmt.Printf("video_id id :%+v \n", playlist_uid)
+		fmt.Printf("video_id id :%+v \n", id)
 		app.serverError(w, err)
 		return
 	}
@@ -141,22 +139,16 @@ func (app *application) getPlaylistByID(w http.ResponseWriter, r *http.Request) 
 }
 
 func (app *application) getPlaylistByName(w http.ResponseWriter, r *http.Request) {
-	var form Playlistform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	name := params.ByName("name")
+	if strings.TrimSpace(name) == "" {
+		WriteJSON(w, 400, "name can't be blank")
 		return
 	}
 
-	form.CheckField(validator.NotBlank(form.Name), "name", "name cannot be blank")
-	if !form.Valid() {
-		WriteJSON(w, 401, form.FieldErrors)
-		return
-	}
-
-	playlist, err := app.playlist.GetPlaylistByName(form.Name)
+	playlist, err := app.playlist.GetPlaylistByName(name)
 	if err != nil {
-		fmt.Printf("playlist name was :%+v \n", form.Name)
+		fmt.Printf("playlist name was :%+v \n", name)
 		app.serverError(w, err)
 		return
 	}

@@ -39,7 +39,7 @@ type UserPasswordChange struct {
 }
 
 func (app *application) getuser(w http.ResponseWriter, r *http.Request) {
-	params := httprouter.ParamsFromContext(r.Context()) //look more into context
+	params := httprouter.ParamsFromContext(r.Context())
 	idstr := params.ByName("id")
 	id, err := uuid.Parse(idstr)
 	if err != nil || id == uuid.Nil {
@@ -304,20 +304,14 @@ func (app *application) refreshSession(w http.ResponseWriter, r *http.Request) {
 
 }
 func (app *application) searchUserByQuery(w http.ResponseWriter, r *http.Request) {
-	var form Query
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	query := params.ByName("query")
+	if strings.TrimSpace(query) == "" {
+		WriteJSON(w, 400, "query can't be blank")
 		return
 	}
 
-	form.CheckField(validator.NotBlank(form.Query), "query", "query cannot be blank")
-	if !form.Valid() {
-		WriteJSON(w, 401, form.FieldErrors)
-		return
-	}
-
-	users, err := app.users.SearchUser(form.Query)
+	users, err := app.users.SearchUser(query)
 	if err != nil {
 		WriteJSON(w, 400, fmt.Sprintf("the while reading from db %+v", err))
 		return

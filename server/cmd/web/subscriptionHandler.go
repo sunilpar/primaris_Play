@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
+	"github.com/julienschmidt/httprouter"
 )
 
 type Subform struct {
@@ -61,8 +62,6 @@ func (app *application) RemoveSubcription(w http.ResponseWriter, r *http.Request
 		WriteJSON(w, 400, "channel cant be empty or invalid ")
 		return
 	}
-	fmt.Printf("sub id :%+v \n", user.ID)
-	fmt.Printf("sub id :%+v \n", Channel)
 	err = app.sub.RemoveSubcription(user.ID, Channel)
 	if err != nil {
 		app.serverError(w, err)
@@ -72,10 +71,11 @@ func (app *application) RemoveSubcription(w http.ResponseWriter, r *http.Request
 }
 
 func (app *application) CheckIfSubed(w http.ResponseWriter, r *http.Request) {
-	var form Subform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
 
@@ -84,12 +84,8 @@ func (app *application) CheckIfSubed(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "User not found in context", http.StatusInternalServerError)
 		return
 	}
-	Channel, err := uuid.Parse(form.Channel)
-	if err != nil {
-		WriteJSON(w, 400, "channel cant be empty or invalid ")
-		return
-	}
-	isSubed, err := app.sub.IsSubed(user.ID, Channel)
+
+	isSubed, err := app.sub.IsSubed(user.ID, id)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -98,19 +94,14 @@ func (app *application) CheckIfSubed(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) Subcount(w http.ResponseWriter, r *http.Request) {
-	var form Subform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
-
-	Channel, err := uuid.Parse(form.Channel)
-	if err != nil {
-		WriteJSON(w, 400, "channel cant be empty or invalid ")
-		return
-	}
-	subcount, err := app.sub.SubCount(Channel)
+	subcount, err := app.sub.SubCount(id)
 	if err != nil {
 		app.serverError(w, err)
 		return

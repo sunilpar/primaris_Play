@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
+	"github.com/julienschmidt/httprouter"
 )
 
 type Likeform struct {
@@ -77,22 +78,17 @@ func (app *application) removeLikes(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) getLikes(w http.ResponseWriter, r *http.Request) {
-	var form Likeform
-	err := app.decodePostForm(r, &form)
-	if err != nil {
-		app.serverError(w, err)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
 
-	video_UID, err := uuid.Parse(form.Video_UID)
+	likes, err := app.likes.GetLikes(id)
 	if err != nil {
-		WriteJSON(w, 400, "channel cant be empty or invalid ")
-		return
-	}
-
-	likes, err := app.likes.GetLikes(video_UID)
-	if err != nil {
-		fmt.Printf("video_id id :%+v \n", video_UID)
+		fmt.Printf("video_id id :%+v \n", id)
 		app.serverError(w, err)
 		return
 	}
