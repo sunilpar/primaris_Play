@@ -63,7 +63,7 @@ func (app *application) requireAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("authorization")
 		if err != nil {
-			WriteJSON(w, 401, err) //if route doesnt have user it will not recognize cookie ??
+			WriteJSON(w, 401, fmt.Sprintf("error is :%v", err)) //if route doesnt have user it will not recognize cookie ??
 			return
 		}
 		tokenString := cookie.Value
@@ -103,7 +103,7 @@ func (app *application) requireAuth(next http.Handler) http.Handler {
 }
 
 var corsHandler = cors.New(cors.Options{
-	AllowedOrigins:   []string{"*"},
+	AllowedOrigins:   []string{"http://localhost:*"},
 	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
 	AllowedHeaders:   []string{"Content-Type", "Authorization"},
 	AllowCredentials: true,

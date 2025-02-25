@@ -66,6 +66,7 @@ func (app *application) login(w http.ResponseWriter, r *http.Request) {
 	var form UserLogin
 	err := app.decodePostForm(r, &form)
 	if err != nil {
+		fmt.Printf("error while decoding the form was %v", err)
 		app.clientError(w, http.StatusBadRequest)
 		return
 	}
@@ -85,14 +86,18 @@ func (app *application) login(w http.ResponseWriter, r *http.Request) {
 			err = WriteJSON(w, 404, "invalid password")
 			if err != nil {
 				app.serverError(w, err)
+				return
 			}
+			return
 		}
 		app.clientError(w, http.StatusBadRequest)
+		return
 	}
 
 	refreshtoken, err := app.users.SignJWT(w, id)
 	if err != nil {
 		app.serverError(w, err)
+		return
 	}
 
 	err = app.users.UpdateSession(id, refreshtoken)
@@ -104,10 +109,12 @@ func (app *application) login(w http.ResponseWriter, r *http.Request) {
 	user, err := app.users.Get(id)
 	if err != nil {
 		app.serverError(w, err)
+		return
 	}
 	err = WriteJSON(w, 200, user)
 	if err != nil {
 		app.serverError(w, err)
+		return
 	}
 
 }
@@ -150,7 +157,6 @@ func (app *application) signup(w http.ResponseWriter, r *http.Request) {
 
 }
 func (app *application) logout(w http.ResponseWriter, r *http.Request) {
-
 	cookie1 := &http.Cookie{
 		Name:     "authorization",
 		Value:    "",
@@ -158,6 +164,7 @@ func (app *application) logout(w http.ResponseWriter, r *http.Request) {
 		MaxAge:   -1,
 		HttpOnly: true,
 	}
+
 	cookie2 := &http.Cookie{
 		Name:     "refresh_token",
 		Value:    "",
