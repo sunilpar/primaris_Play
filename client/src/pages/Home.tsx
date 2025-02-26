@@ -14,8 +14,6 @@ function Home() {
       <div className="h-[5px] overflow-clip">
         <img src={strip} alt="" />
       </div>
-
-      <div className="min-h-screen flex justify-center"></div>
     </>
   );
 }

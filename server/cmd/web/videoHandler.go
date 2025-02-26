@@ -69,7 +69,12 @@ func (app *application) insertVideoData(w http.ResponseWriter, r *http.Request) 
 		WriteJSON(w, 500, "error during retival of uploaded video_uid")
 		return
 	}
-	WriteJSON(w, 200, form)
+	video, err := app.video.GetVideoByID(form.VIdeo_UID)
+	if err != nil {
+		WriteJSON(w, 500, "error during retival of uploaded video details but video was inserted")
+		return
+	}
+	WriteJSON(w, 200, video)
 
 }
 func (app *application) videoUpload(w http.ResponseWriter, r *http.Request) {

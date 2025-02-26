@@ -8,6 +8,7 @@ import ReactDOM from "react-dom/client";
 
 import Test from "./pages/Test.tsx";
 import Home from "./pages/Home.tsx";
+import Imperium from "./pages/Imperium.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Imperium />,
+      },
+      {
+        path: "/home",
         element: <Home />,
       },
       {

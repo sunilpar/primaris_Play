@@ -13,7 +13,7 @@ function Sidebar() {
             </div>
           </Link>
 
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <div className=" flex justify-center">home </div>
           </Link>
         </div>
