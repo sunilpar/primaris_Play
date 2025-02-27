@@ -1,19 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import strip from "../assets/strip.png";
-
+import videoService from "@/backend/video.ts";
+import Preview from "@/components/video/Preview";
+import Spinner from "@/components/skeleton/Spinner";
+interface Video {
+  id: string;
+  video_url: string;
+  thumbnail: string;
+  owner: string;
+  title: string;
+  description: string;
+  created: string;
+}
 function Home() {
-  return (
-    <>
-      <div className="min-h-screen flex justify-center">
-        <Link to={"/test"}>
-          <button>to test </button>
-        </Link>
-      </div>
+  const [video, setVideo] = useState<Video[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-      <div className="h-[5px] overflow-clip">
-        <img src={strip} alt="" />
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const response = await videoService.getVideosforHome();
+        setLoading(false);
+        if (response != null) {
+          setVideo(response);
+        }
+      } catch (error) {
+        console.error("error while getting video \n", error);
+      }
+    })();
+  }, []);
+
+  return !loading ? (
+    <>
+      <div className="w-full flex flex-wrap ">
+        {video.map((vid) => (
+          <Preview key={vid.id} video={vid} />
+        ))}
       </div>
+    </>
+  ) : (
+    <>
+      <Spinner />
     </>
   );
 }

@@ -241,3 +241,13 @@ func (app *application) getAllVideosOfUser(w http.ResponseWriter, r *http.Reques
 	WriteJSON(w, 200, videos)
 
 }
+func (app *application) allvideo(w http.ResponseWriter, r *http.Request) {
+
+	videos, err := app.video.AllVideo()
+	if err != nil {
+		WriteJSON(w, 400, "could't get video all videos ")
+		return
+	}
+	WriteJSON(w, 200, videos)
+
+}

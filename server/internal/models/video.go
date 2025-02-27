@@ -20,6 +20,7 @@ type VideoModelInterface interface {
 	GetVideoByTitle(title string) (video Video, err error)
 	SearchVideo(query string) (videos []Video, err error)
 	GetAllVideo(id uuid.UUID) (videos []Video, err error)
+	AllVideo() (videos []Video, err error)
 }
 
 type Video struct {
@@ -155,7 +156,7 @@ func (m *VideoModel) SearchVideo(query string) (videos []Video, err error) {
 		var video Video
 
 		if err = rows.Scan(&video.ID, &video.Videofile, &video.Thumbnail, &video.Owner, &video.Title, &video.Description, &video.Ispublic, &video.Created); err != nil {
-			return nil, fmt.Errorf("scanning comment: %v", err)
+			return nil, fmt.Errorf("scanning video: %v", err)
 		}
 		videos = append(videos, video)
 	}
@@ -181,6 +182,31 @@ func (m *VideoModel) GetAllVideo(id uuid.UUID) (videos []Video, err error) {
 
 		if err = rows.Scan(&video.ID, &video.Videofile, &video.Thumbnail, &video.Owner, &video.Title, &video.Description, &video.Ispublic, &video.Created); err != nil {
 			return nil, fmt.Errorf("scanning comment: %v", err)
+		}
+		videos = append(videos, video)
+	}
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("iterating over rows: %v", err)
+	}
+
+	fmt.Println("query fetched")
+	return videos, nil
+}
+func (m *VideoModel) AllVideo() (videos []Video, err error) {
+	stmt := `SELECT * FROM videos
+	ORDER BY RANDOM();`
+
+	rows, err := m.DB.Query(stmt)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var video Video
+
+		if err = rows.Scan(&video.ID, &video.Videofile, &video.Thumbnail, &video.Owner, &video.Title, &video.Description, &video.Ispublic, &video.Created); err != nil {
+			return nil, fmt.Errorf("scanning video: %v", err)
 		}
 		videos = append(videos, video)
 	}

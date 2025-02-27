@@ -9,6 +9,10 @@ import ReactDOM from "react-dom/client";
 import Test from "./pages/Test.tsx";
 import Home from "./pages/Home.tsx";
 import Imperium from "./pages/Imperium.tsx";
+import Localvideo from "./pages/Localvideo.tsx";
+import Video from "./pages/Video.tsx";
+import Channel from "./pages/Channel.tsx";
+import Search from "./pages/Search.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +30,22 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <Test />,
+      },
+      {
+        path: "/localvideo/:src/:title",
+        element: <Localvideo />,
+      },
+      {
+        path: "/video/:id",
+        element: <Video />,
+      },
+      {
+        path: "/channel/:id",
+        element: <Channel />,
+      },
+      {
+        path: "/search/:query",
+        element: <Search />,
       },
     ],
   },

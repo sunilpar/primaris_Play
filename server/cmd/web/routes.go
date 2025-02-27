@@ -27,6 +27,7 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/user/playlist/getbyname/:name", dynamic.ThenFunc(app.getPlaylistByName))
 	router.Handler(http.MethodGet, "/user/video/search/:query", dynamic.ThenFunc(app.searchVideosByQuery))
 	router.Handler(http.MethodGet, "/user/search/:query", dynamic.ThenFunc(app.searchUserByQuery))
+	router.Handler(http.MethodGet, "/user/allvideo/search", dynamic.ThenFunc(app.allvideo))
 	//user routes
 	router.Handler(http.MethodPost, "/user/signup", dynamic.ThenFunc(app.signup))
 	router.Handler(http.MethodPost, "/user/login", dynamic.ThenFunc(app.login))

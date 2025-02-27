@@ -16,6 +16,15 @@ export class VideoService {
     }
     return null;
   }
+  async getVideosforHome() {
+    try {
+      const data = {};
+      return await AxiosHelper(`${apiUrl}/user/allvideo/search`, data, "get");
+    } catch (error) {
+      console.error("Error fetching video :", error);
+    }
+    return null;
+  }
 
   async getAllVideo() {
     try {
