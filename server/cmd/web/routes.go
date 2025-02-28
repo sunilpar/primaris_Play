@@ -42,7 +42,7 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodPost, "/user/video/thumbnailUpload", auth.ThenFunc(app.thumbnailUpload))
 	router.Handler(http.MethodPost, "/user/video/updateThumbnail", auth.ThenFunc(app.changeThumbnail))
 	router.Handler(http.MethodPost, "/user/video/updateOtherdetails", auth.ThenFunc(app.changeVideoDetails))
-	router.Handler(http.MethodGet, "/user/video/getallvideo", auth.ThenFunc(app.getAllVideosOfUser))
+	router.Handler(http.MethodGet, "/user/video/getallvideo/:id", dynamic.ThenFunc(app.getAllVideosOfUser))
 	//subscription routes
 	router.Handler(http.MethodPost, "/user/subcription/add", auth.ThenFunc(app.AddSubcription))
 	router.Handler(http.MethodPost, "/user/subcription/remove", auth.ThenFunc(app.RemoveSubcription))

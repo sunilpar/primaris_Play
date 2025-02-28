@@ -227,13 +227,15 @@ func (app *application) searchVideosByQuery(w http.ResponseWriter, r *http.Reque
 
 }
 func (app *application) getAllVideosOfUser(w http.ResponseWriter, r *http.Request) {
-
-	user, ok := r.Context().Value(userContextKey).(*models.User)
-	if !ok {
-		http.Error(w, "User not found in context", http.StatusInternalServerError)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
-	videos, err := app.video.GetAllVideo(user.ID)
+
+	videos, err := app.video.GetAllVideo(id)
 	if err != nil {
 		WriteJSON(w, 400, fmt.Sprintf("the while reading from db %+v", err))
 		return

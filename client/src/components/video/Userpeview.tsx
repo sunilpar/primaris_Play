@@ -18,16 +18,16 @@ const Userpeview: React.FC<{ user: User }> = ({ user }) => {
     <>
       <div className="logo like flex  justify-between mt-10">
         <div className="logo flex ">
-          <Link to={``}>
+          <Link to={`/profile/${user.id}`}>
             <img
-              className="w-[60px] h-[60px] object-cover "
+              className="w-[60px] h-[60px] object-cover rounded-full"
               src={user?.avatar}
               alt=""
             />
           </Link>
         </div>
       </div>
-      <Link to={``}>
+      <Link to={`/profile/${user.id}`}>
         <div className="flex flex-col">
           <div className="channel_name mt-[7.4px] font-bold ">
             {user?.username}

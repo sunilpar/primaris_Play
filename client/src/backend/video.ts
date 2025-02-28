@@ -26,10 +26,14 @@ export class VideoService {
     return null;
   }
 
-  async getAllVideo() {
+  async getAllVideo(id: string) {
     try {
       const data = {};
-      return await AxiosHelper(`${apiUrl}/user/video/getallvideo`, data, "get");
+      return await AxiosHelper(
+        `${apiUrl}/user/video/getallvideo/${id}`,
+        data,
+        "get"
+      );
     } catch (error) {
       console.error("Error fetching video of user:", error);
     }

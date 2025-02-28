@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import small from "../assets/smalllogo.png";
-
+import Localpreview from "@/components/video/Localpreview";
 import Home from "./Home";
 
 import video1 from "../assets/gillimain.mp4";
@@ -44,14 +44,14 @@ function Localvideo() {
 
   return (
     <>
-      <div className="video  p-2 ">
-        <div className="playback min-w-[400px] w-full">
-          <div className="rounded-2xl">
+      <div className="video  flex flex-wrap justify-center gap-3">
+        <div className="playback min-w-[400px] lg:w-[60%] sm:w-full mt-5">
+          <div className="rounded-2xl ">
             <video
               src={video}
               controls
               autoPlay
-              className="max-w-full h-auto rounded-xl"
+              className="w-full h-auto rounded-xl"
             ></video>
           </div>
           <div className="title like and logo ">
@@ -60,23 +60,32 @@ function Localvideo() {
             </div>
             <div className="logo like flex flex-row justify-between">
               <div className="logo flex ">
-                <img className="w-[60px] h-[60px]" src={small} alt="" />
+                <img
+                  className="w-[60px] h-[60px] object-cover "
+                  src={small}
+                  alt=""
+                />
                 <div className="flex flex-col">
                   <div className="channel_name mt-[7.4px] font-bold ">
                     Admin
                   </div>
                   <div className="channel_sub text-sm opacity-70 ">
-                    10Bil subscribers
+                    10 Bil subscribers
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="description"></div>
-          <div className="comment"></div>
+          <div className="flex justify-center flex-wrap items-center  z-10">
+            <Home />
+          </div>
         </div>
-        <div className="recommended w-full flex flex-wrap">
-          <Home />
+
+        <div className="recommended flex flex-wrap lg:w-[300px]">
+          <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
+          <Localpreview name={"video2"} title={"Emperor's Angels"} />
+          <Localpreview name={"video3"} title={"The heretic son Horus"} />
+          <Localpreview name={"video4"} title={"Ancient enemy"} />
         </div>
       </div>
     </>

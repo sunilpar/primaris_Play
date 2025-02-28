@@ -13,6 +13,10 @@ import Localvideo from "./pages/Localvideo.tsx";
 import Video from "./pages/Video.tsx";
 import Channel from "./pages/Channel.tsx";
 import Search from "./pages/Search.tsx";
+import Login from "./pages/Login.tsx";
+import Signup from "./pages/Signup.tsx";
+import Logout from "./components/sidebar/Logout.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +50,22 @@ const router = createBrowserRouter([
       {
         path: "/search/:query",
         element: <Search />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
       },
     ],
   },

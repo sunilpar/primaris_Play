@@ -56,18 +56,23 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
 
         <div className="for title and avatar flex w-[374px] mt-2">
           <div className="bg-[#1b1b1d] rounded-full ">
-            <img
-              className="avatar rounded-full mr-2 h-[50px] w-[50px] object-cover "
-              src={user?.avatar}
-              alt=""
-            />
+            <Link to={`/profile/${user?.id}`}>
+              <img
+                className="avatar rounded-full mr-2 h-[50px] w-[50px] object-cover "
+                src={user?.avatar}
+                alt=""
+              />
+            </Link>
           </div>
           <div className="pl-2">
             <div className="title text-left w-[314px]  text-xl font-semibold">
               {video.title}
             </div>
             <div className="channel and date flex opacity-75 ">
-              <div className="channel name text-left ">{user?.username}</div>
+              <Link to={`/profile/${user?.id}`}>
+                <div className="channel name text-left ">{user?.username}</div>
+              </Link>
+
               <div className="date pl-[20px] text-left ">
                 {timeAgo(video.created)}
               </div>
