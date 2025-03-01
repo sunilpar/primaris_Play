@@ -33,7 +33,7 @@ function Home() {
 
   return !loading ? (
     <>
-      <div className=" flex flex-wrap">
+      <div className=" flex flex-wrap justify-center">
         {video.map((vid) => (
           <Preview key={vid.id} video={vid} />
         ))}

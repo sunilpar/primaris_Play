@@ -21,6 +21,8 @@ type Commentform struct {
 	User_UID            uuid.UUID `json:"user_UID"`
 	Comment             string    `json:"comment"`
 	Created             time.Time `json:"created"`
+	Avatar              string    `json:"avatar"`
+	Username            string    `json:"username"`
 	validator.Validator `form:"-"`
 }
 
@@ -63,8 +65,11 @@ func (m *CommentModel) DeleteComment(video_uid uuid.UUID, user_uid uuid.UUID) er
 }
 func (m *CommentModel) GetComment(video_uid uuid.UUID) ([]Commentform, error) {
 	var comments []Commentform
-	stmt := ` select * from comments
-	 WHERE video_uid = $1 ;`
+	stmt := `SELECT comments.*, users.avatar, users.username
+	FROM comments
+	LEFT JOIN users ON comments.user_uid = users.user_uid
+	WHERE comments.video_uid = $1;`
+	fmt.Printf("video id in get comment is %v:\n", video_uid)
 
 	rows, err := m.DB.Query(stmt, video_uid)
 	if err != nil {
@@ -75,7 +80,7 @@ func (m *CommentModel) GetComment(video_uid uuid.UUID) ([]Commentform, error) {
 	for rows.Next() {
 		var comment Commentform
 
-		if err = rows.Scan(&comment.Comment_UID, &comment.Video_UID, &comment.User_UID, &comment.Comment, &comment.Created); err != nil {
+		if err = rows.Scan(&comment.Comment_UID, &comment.Video_UID, &comment.User_UID, &comment.Comment, &comment.Created, &comment.Avatar, &comment.Username); err != nil {
 			return nil, fmt.Errorf("scanning comment: %v", err)
 		}
 		comments = append(comments, comment)

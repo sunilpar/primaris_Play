@@ -1,38 +1,45 @@
 import React, { useEffect, useState } from "react";
 import commentService from "@/backend/comment";
-import authService from "@/backend/auth";
+import currentUser from "@/utils/Session.helper";
+import { Link } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 interface LikebtnProps {
   video_id: string;
 }
 interface Comment {
   id: string;
-  video_id: string;
-  user_id: string;
+  video_UID: string;
+  user_UID: string;
   comment: string;
   created: string;
-}
-interface User {
-  id: string;
-  username: string;
-  fullname: string;
-  email: string;
   avatar: string;
-  coverimage: string;
-  created: string;
+  username: string;
 }
+interface FormData {
+  content: string;
+}
+
 function Comment({ video_id }: LikebtnProps) {
-  const [user, setUser] = useState<User[]>([]);
   const [comment, setComment] = useState<Comment[]>([]);
   const [islogged, setIslogged] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [refreshKey, setRefreshKey] = useState<number>(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   useEffect(() => {
     if (video_id) {
       setLoading(true);
+      setIslogged(currentUser.isLogged());
       getcomments(video_id);
       setLoading(false);
     }
-  }, [video_id]);
+  }, [video_id, refreshKey]);
 
   function getcomments(video_id: string) {
     (async () => {
@@ -48,47 +55,95 @@ function Comment({ video_id }: LikebtnProps) {
       }
     })();
   }
-
-  function getusers(user_id: string) {
-    (async () => {
-      try {
-        setLoading(true);
-        const response = await authService.getUserById(user_id);
-        setLoading(false);
-        if (response != null) {
-          //1 user comes
-        }
-      } catch (error) {
-        console.error("error while getting comments \n", error);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setError("");
+    try {
+      setLoading(true);
+      const response = await commentService.addComments(video_id, data.content);
+      setLoading(false);
+      if (response != null) {
+        console.log(response);
+        setRefreshKey((prevKey) => prevKey + 1);
       }
-    })();
-  }
+    } catch (err) {
+      console.error("Error: couldnt add comment", err);
+      setError("coundnt add comment ");
+    }
+  };
 
-  return (
+  return !loading ? (
     <>
-      <div className="w-full max-w-2xl mx-auto p-4">
-        <div className="border-b pb-4 mb-4">
-          <input
-            type="text"
-            placeholder="Add a comment..."
-            className="w-full p-2 text-white rounded-md  focus:outline-none focus:ring-0"
-          />
-        </div>
+      <div className="w-full max-w-2xl p-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="">
+          <div className="border-b pb-4 mb-4 w-full">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              className="w-full p-2 text-white rounded-md  focus:outline-none focus:ring-0"
+              {...register("content", { required: "comment is required" })}
+            />
+          </div>
+          {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+
+          {islogged ? (
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="rounded-xl px-4 py-1 bg-white hover:opacity-70 text-black font-semibold hover:duration-75"
+              >
+                Post
+              </button>
+            </div>
+          ) : (
+            <div className="flex justify-end">
+              <Link to={"/login"}></Link>
+              <button className="rounded-xl px-4 py-1 bg-white hover:opacity-70 text-black font-semibold hover:duration-75">
+                login
+              </button>
+            </div>
+          )}
+        </form>
 
         {comment.map((cmt) => (
           <div key={cmt.id} className="flex gap-3 mb-5 ">
+            <Link to={`/profile/${cmt.user_UID}`}>
+              <img
+                className="h-[60px] w-[60px] rounded-full"
+                src={cmt.avatar}
+                alt=""
+              />
+            </Link>
             <div>
-              <p className="text-sm text-gray-400">
-                <span className="font-semibold text-white">10</span> • 10
+              <p className="text-sm text-gray-400 ">
+                <span className="font-semibold text-white mr-5">
+                  {cmt.username}
+                </span>
+                {timeAgo(cmt.created)}
               </p>
               <p className="text-white">{cmt.comment}</p>
-              <div className="flex gap-4 mt-2 text-gray-400 text-sm">
-                <button className="hover:text-blue-500">👍 10</button>
-                <button className="hover:text-blue-500">Reply</button>
-              </div>
+              <div className="flex gap-4 mt-2 text-gray-400 text-sm"></div>
             </div>
           </div>
         ))}
+      </div>
+    </>
+  ) : (
+    <>
+      <div className="w-full  h-[fit] ">
+        <div className="felx mb-5 ">
+          <div className="flex flex-row">
+            <div className="bg-[#242526] mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
+            <div className="bg-[#242526] h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
+          </div>
+          <div className="bg-[#242526] h-[60px] w-[300px] rounded-2xl "></div>
+        </div>
+        <div className="felx mb-5 ">
+          <div className="flex flex-row">
+            <div className="bg-[#242526] mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
+            <div className="bg-[#242526] h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
+          </div>
+          <div className="bg-[#242526] h-[60px] w-[300px] rounded-2xl "></div>
+        </div>
       </div>
     </>
   );
@@ -96,118 +151,27 @@ function Comment({ video_id }: LikebtnProps) {
 
 export default Comment;
 
-// import React, { useEffect, useState } from "react";
-// import commentService from "@/backend/comment";
-// import authService from "@/backend/auth";
+function timeAgo(dateString: string): string {
+  const date: Date = new Date(dateString);
+  const now: Date = new Date();
+  const diffInSeconds: number = Math.floor(
+    (now.getTime() - date.getTime()) / 1000
+  );
 
-// interface cmtProps {
-//   video_id: string;
-// }
+  const units: { label: string; seconds: number }[] = [
+    { label: "yr", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hr", seconds: 3600 },
+    { label: "min", seconds: 60 },
+  ];
 
-// interface Comment {
-//   id: string;
-//   video_id: string;
-//   user_id: string;
-//   comment: string;
-//   created: string;
-// }
+  for (const unit of units) {
+    const amount: number = Math.floor(diffInSeconds / unit.seconds);
+    if (amount >= 1) {
+      return `${amount} ${unit.label}${amount > 1 ? "s" : ""} ago`;
+    }
+  }
 
-// interface User {
-//   id: string;
-//   username: string;
-//   avatar: string;
-// }
-
-// function Comment({ video_id }: cmtProps) {
-//   const [users, setUsers] = useState<Map<string, User>>(new Map());
-//   const [comments, setComments] = useState<Comment[]>([]);
-//   const [loading, setLoading] = useState<boolean>(false);
-
-//   useEffect(() => {
-//     if (video_id) {
-//       setLoading(true);
-//       getcomments(video_id);
-//       setLoading(false);
-//     }
-//   }, [video_id]);
-
-//   function getcomments(video_id: string) {
-//     (async () => {
-//       try {
-//         const response = await commentService.getcomments(video_id);
-//         if (response) {
-//           setComments(response);
-//           response.forEach((comment: Comment) => {
-//             getusers(comment.user_id);
-//           });
-//         }
-//       } catch (error) {
-//         console.error("Error while getting comments:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     })();
-//   }
-
-//   function getusers(user_id: string) {
-//     if (!users.has(user_id)) {
-//       (async () => {
-//         try {
-//           const response = await authService.getUserById(user_id);
-//           if (response) {
-//             setUsers((prevUsers) => new Map(prevUsers).set(user_id, response));
-//           }
-//         } catch (error) {
-//           console.error("Error while getting user:", error);
-//         }
-//       })();
-//     }
-//   }
-
-//   return (
-//     <div className="w-full max-w-2xl mx-auto p-4">
-//       <div className="border-b pb-4 mb-4">
-//         <input
-//           type="text"
-//           placeholder="Add a comment..."
-//           className="w-full p-2 text-white rounded-md focus:outline-none focus:ring-0"
-//         />
-//       </div>
-
-//       {comments.map((cmt) => {
-//         const user = users.get(cmt.user_id);
-//         return (
-//           <div key={cmt.id} className="flex gap-3 mb-5">
-//             <div>
-//               {user ? (
-//                 <div className="flex items-center gap-2">
-//                   <img
-//                     src={user.avatar}
-//                     alt={user.username}
-//                     className="w-8 h-8 rounded-full"
-//                   />
-//                   <p className="text-sm text-gray-400">
-//                     <span className="font-semibold text-white">
-//                       {user.username}
-//                     </span>
-//                     {" • "}
-//                     {new Date(cmt.created).toLocaleString()}
-//                   </p>
-//                 </div>
-//               ) : (
-//                 <p>Loading user...</p>
-//               )}
-//               <p className="text-white mt-2">{cmt.comment}</p>
-//               <div className="flex gap-4 mt-2 text-gray-400 text-sm">
-//                 <button className="hover:text-blue-500">👍 10</button>
-//                 <button className="hover:text-blue-500">Reply</button>
-//               </div>
-//             </div>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
-
-// export default Comment;
+  return "Just now";
+}

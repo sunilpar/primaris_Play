@@ -94,7 +94,7 @@ function Search() {
               {video.length > 0 ? (
                 video.map((vid) => <Preview key={vid.id} video={vid} />)
               ) : (
-                <div className="flex justify-center text-gray-400 mt-10">
+                <div className="flex justify-center text-gray-400 mt-10  ">
                   No videos as "{query}" was found...
                 </div>
               )}

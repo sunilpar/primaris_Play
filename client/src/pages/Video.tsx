@@ -105,7 +105,7 @@ function Video() {
             </div>
             <div className="logo like flex flex-row justify-between">
               <div className="logo flex ">
-                <Link to={`/channel/${video?.owner}`}>
+                <Link to={`/profile/${video?.owner}`}>
                   <img
                     className="w-[60px] h-[60px] object-cover "
                     src={user?.avatar}
@@ -113,7 +113,7 @@ function Video() {
                   />
                 </Link>
 
-                <Link to={`/channel/${video?.owner}`}>
+                <Link to={`/profile/${video?.owner}`}>
                   <div className="flex flex-col">
                     <div className="channel_name mt-[7.4px] font-bold ">
                       {user?.username}
@@ -178,7 +178,7 @@ function Video() {
           <div className="description bg-[#242526] rounded-xl p-3 opacity-70 mt-7">
             {video?.description}
           </div>
-          <div className="comment">
+          <div className="comment mt-7">
             <Comment video_id={id} />
           </div>
         </div>

@@ -202,6 +202,38 @@ function Sidebar() {
               </div>
             </Link>
           )}
+
+          {Loggedin && (
+            <Link to={`/upload`}>
+              <div className=" flex justify-center opacity-70 hover:scale-125 mt-5">
+                <svg
+                  width="30px"
+                  height="30px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>upload</title>
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M16 12L12 8M12 8L8 12M12 8V17.2C12 18.5907 12 19.2861 12.5505 20.0646C12.9163 20.5819 13.9694 21.2203 14.5972 21.3054C15.5421 21.4334 15.9009 21.2462 16.6186 20.8719C19.8167 19.2036 22 15.8568 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 15.7014 4.01099 18.9331 7 20.6622"
+                      stroke="#ffffff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                  </g>
+                </svg>
+              </div>
+            </Link>
+          )}
         </div>
 
         {/* below */}
@@ -263,7 +295,7 @@ function Sidebar() {
           )}
 
           {Loggedin && (
-            <Link to={"/settings"}>
+            <Link to={"/setting"}>
               <div className=" flex justify-center opacity-70 hover:scale-125">
                 <svg
                   width="50px"

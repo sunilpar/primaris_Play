@@ -17,6 +17,9 @@ import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import Logout from "./components/sidebar/Logout.tsx";
 import Profile from "./pages/Profile.tsx";
+import Settings from "./pages/Settings.tsx";
+import History from "./pages/History.tsx";
+import Upload from "./pages/Upload.tsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +69,18 @@ const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <Profile />,
+      },
+      {
+        path: "/History",
+        element: <History />,
+      },
+      {
+        path: "/setting",
+        element: <Settings />,
+      },
+      {
+        path: "/upload",
+        element: <Upload />,
       },
     ],
   },
