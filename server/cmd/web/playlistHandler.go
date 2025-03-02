@@ -185,13 +185,15 @@ func (app *application) removePlaylist(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) getAllPlaylist(w http.ResponseWriter, r *http.Request) {
 
-	user, ok := r.Context().Value(userContextKey).(*models.User)
-	if !ok {
-		http.Error(w, "User not found in context", http.StatusInternalServerError)
+	params := httprouter.ParamsFromContext(r.Context())
+	idstr := params.ByName("id")
+	id, err := uuid.Parse(idstr)
+	if err != nil || id == uuid.Nil {
+		app.notFound(w)
 		return
 	}
 
-	playlist, err := app.playlist.GetAllPlaylist(user.ID)
+	playlist, err := app.playlist.GetAllPlaylist(id)
 	if err != nil {
 		app.serverError(w, err)
 		return

@@ -5,6 +5,7 @@ import authService from "@/backend/auth";
 import subService from "@/backend/sub";
 import currentUser from "@/utils/Session.helper";
 import Preview from "@/components/video/Preview";
+import Playlist from "@/components/usersettings/Playlist";
 
 interface Video {
   id: string;
@@ -32,6 +33,9 @@ function Profile() {
   const [loading, setLoading] = useState<boolean>(true);
   const [issubbed, setIssubbed] = useState<boolean | null>(null);
   const [count, setCount] = useState<number | null>(null);
+
+  const [showvid, setShowvid] = useState<boolean>(true);
+  const [showplaylist, setShowplaylist] = useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
 
@@ -123,21 +127,43 @@ function Profile() {
           </div>
         </div>
 
-        <div className="ml-10 text-3xl font-bold opacity-70 mt-6">videos</div>
+        <button
+          className="ml-10 text-3xl font-bold opacity-70 mt-6"
+          onClick={() => {
+            setShowplaylist(false);
+            setShowvid(true);
+          }}
+        >
+          videos
+        </button>
+        <button
+          className="ml-10 text-3xl font-bold opacity-70 mt-6"
+          onClick={() => {
+            setShowplaylist(true);
+            setShowvid(false);
+          }}
+        >
+          playlists
+        </button>
 
-        {videos.length > 0 ? (
+        {showvid && (
           <div>
-            <div className="uservideos w-full flex flex-wrap sm:mx-17">
-              {videos.map((vid) => (
-                <Preview key={vid.id} video={vid} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="flex justify-center opacity-70">
-            channel has no videos
+            {videos.length > 0 ? (
+              <div>
+                <div className="uservideos w-full flex flex-wrap sm:mx-17">
+                  {videos.map((vid) => (
+                    <Preview key={vid.id} video={vid} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-center opacity-70">
+                channel has no videos
+              </div>
+            )}
           </div>
         )}
+        {showplaylist && <Playlist id={id || ""} />}
       </div>
     </div>
   );

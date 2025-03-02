@@ -20,6 +20,8 @@ import Profile from "./pages/Profile.tsx";
 import Settings from "./pages/Settings.tsx";
 import History from "./pages/History.tsx";
 import Upload from "./pages/Upload.tsx";
+import Editvideo from "./pages/Editvideo.tsx";
+import Legiondetails from "./pages/Legiondetails.tsx";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +83,14 @@ const router = createBrowserRouter([
       {
         path: "/upload",
         element: <Upload />,
+      },
+      {
+        path: "/edit/:id",
+        element: <Editvideo />,
+      },
+      {
+        path: "/legion",
+        element: <Legiondetails />,
       },
     ],
   },

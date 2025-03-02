@@ -132,17 +132,17 @@ function Comment({ video_id }: LikebtnProps) {
       <div className="w-full  h-[fit] ">
         <div className="felx mb-5 ">
           <div className="flex flex-row">
-            <div className="bg-[#242526] mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
-            <div className="bg-[#242526] h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
+            <div className="pluse mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
+            <div className="pluse h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
           </div>
-          <div className="bg-[#242526] h-[60px] w-[300px] rounded-2xl "></div>
+          <div className="pluse h-[60px] w-[300px] rounded-2xl "></div>
         </div>
         <div className="felx mb-5 ">
           <div className="flex flex-row">
-            <div className="bg-[#242526] mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
-            <div className="bg-[#242526] h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
+            <div className="pluse mb-5  rounded-full h-[60px] w-[60px] mr-2"></div>
+            <div className="pluse h-[20px] w-[200px] rounded-2xl mt-[20px]"></div>
           </div>
-          <div className="bg-[#242526] h-[60px] w-[300px] rounded-2xl "></div>
+          <div className="pluse h-[60px] w-[300px] rounded-2xl "></div>
         </div>
       </div>
     </>

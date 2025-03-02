@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import authService from "@/backend/auth";
-
+import currentUser from "@/utils/Session.helper";
 interface Video {
   id: string;
   video_url: string;
@@ -26,17 +26,28 @@ interface User {
 const Preview: React.FC<{ video: Video }> = ({ video }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [islogged, setIslogged] = useState<boolean>(false);
+  const [loggeduser, setLoggeduser] = useState<User | null>(null);
+
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
+        const loggeduser = currentUser.isLogged();
+        setIslogged(currentUser.isLogged());
         const response = await authService.getUserById(video.owner);
-        setLoading(false);
+
         if (response != null) {
           setUser(response);
+          if (loggeduser) {
+            setLoggeduser(currentUser.getData());
+          }
         }
       } catch (error) {
         console.error("error while getting video \n", error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
@@ -55,7 +66,7 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
         </Link>
 
         <div className="for title and avatar flex w-[374px] mt-2">
-          <div className="bg-[#1b1b1d] rounded-full ">
+          <div className=" rounded-full ">
             <Link to={`/profile/${user?.id}`}>
               <img
                 className="avatar rounded-full mr-2 h-[50px] w-[50px] object-cover "
@@ -76,6 +87,15 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
               <div className="date pl-[20px] text-left ">
                 {timeAgo(video.created)}
               </div>
+              {video?.owner == loggeduser?.id && (
+                <div className="ml-25 ">
+                  <Link to={`/edit/${video.id}`}>
+                    <button className="bg-[#e7ba5d] px-[6.2px]   py-[1.2px] rounded-xl text-black font-bold">
+                      Edit
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -84,7 +104,7 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
   ) : (
     <>
       <div className="video p-3">
-        <div className="thumbnail bg-[#1b1b1d] rounded-2xl overflow-hidden h-[200px]"></div>
+        <div className="thumbnail pluse rounded-2xl overflow-hidden h-[200px]"></div>
 
         <div className="for title and avatar flex w-[374px] mt-2">
           <div className="bg-[#1b1b1d] rounded-full "></div>

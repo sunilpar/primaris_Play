@@ -81,7 +81,7 @@ function Localvideo() {
           </div>
         </div>
 
-        <div className="recommended flex flex-wrap lg:w-[300px]">
+        <div className="recommended flex flex-wrap lg:w-[300px] justify-start flex-col">
           <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
           <Localpreview name={"video2"} title={"Emperor's Angels"} />
           <Localpreview name={"video3"} title={"The heretic son Horus"} />

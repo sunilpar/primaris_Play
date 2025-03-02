@@ -63,7 +63,7 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodPost, "/user/playlist/update", auth.ThenFunc(app.updatePlaylist))
 	router.Handler(http.MethodPost, "/user/playlist/add", auth.ThenFunc(app.addVideos))
 	router.Handler(http.MethodPost, "/user/playlist/remove", auth.ThenFunc(app.removePlaylist))
-	router.Handler(http.MethodPost, "/user/playlist/getall", auth.ThenFunc(app.getAllPlaylist))
+	router.Handler(http.MethodGet, "/user/playlist/getall/:id", dynamic.ThenFunc(app.getAllPlaylist))
 
 	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders, app.cors)
 

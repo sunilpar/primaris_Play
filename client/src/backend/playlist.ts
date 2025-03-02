@@ -31,10 +31,14 @@ export class PlaylistService {
     return null;
   }
 
-  async getAllPlaylist() {
+  async getAllPlaylist(id: string) {
     try {
       const data = {};
-      return await AxiosHelper(`${apiUrl}/user/playlist/getall`, data, "post");
+      return await AxiosHelper(
+        `${apiUrl}/user/playlist/getall/${id}`,
+        data,
+        "get"
+      );
     } catch (error) {
       console.error("Error fetching all history of the user", error);
     }

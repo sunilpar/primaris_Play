@@ -47,7 +47,7 @@ function Localpreview({ name, title }: LocalVideoProps) {
 
   return (
     <>
-      <div className="video p-3">
+      <div className="video p-3 sm:justify-center ">
         <Link to={`/localvideo/${name}/${Title}`}>
           <div className="thumbnail bg-[#1b1b1d] rounded-2xl hover:scale-105">
             <img
