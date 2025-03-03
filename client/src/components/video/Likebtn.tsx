@@ -3,9 +3,10 @@ import likesService from "@/backend/likes";
 import Popplaylist from "../usersettings/Popplaylist";
 interface LikebtnProps {
   video_id: string;
+  islogged: boolean;
 }
 
-function Likebtn({ video_id }: LikebtnProps) {
+function Likebtn({ video_id, islogged }: LikebtnProps) {
   const [isliked, setLike] = useState<boolean>(false);
   const [likecount, setLikecount] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

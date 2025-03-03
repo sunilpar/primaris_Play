@@ -49,12 +49,12 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center w-full h-screen">
-      <div className="mx-auto w-full max-w-lg rounded-xl p-10 ring-1 ring-white ring-opacity-70">
+      <div className="mx-auto w-full max-w-lg rounded-xl  ring-1 ring-[#c4ab88] ring-opacity-70 p-10 ">
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]"></span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
-          Sign in to your account
+          Login to your account
         </h2>
         <p className="mt-2 text-center text-base ">
           Don&apos;t have an account?&nbsp;
@@ -79,7 +79,8 @@ const Login: React.FC = () => {
                     message: "Email address must be a valid address",
                   },
                 })}
-                className="input-class"
+                className="w-full p-2 text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88]"
               />
               {errors.email && (
                 <p className="text-red-600">{errors.email.message}</p>
@@ -92,7 +93,8 @@ const Login: React.FC = () => {
                 {...register("password", {
                   required: "Password is required",
                 })}
-                className="input-class"
+                className="w-full p-2 text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88] mb-5"
               />
               {errors.password && (
                 <p className="text-red-600">{errors.password.message}</p>
@@ -100,7 +102,7 @@ const Login: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-black text-white hover:bg-white hover:text-black duration-150 hover:duration-150"
+              className="w-full p-2 hover:bg-[#c4ab88] bg-[#786953] text-black font-bold rounded-md"
             >
               Login
             </button>

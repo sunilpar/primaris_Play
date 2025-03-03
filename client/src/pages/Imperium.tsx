@@ -7,11 +7,7 @@ import Home from "./Home";
 function Imperium() {
   return (
     <>
-      <div className="min-h-screen flex justify-center">
-        <Link to={"/test"}>
-          <button>to test </button>
-        </Link>
-      </div>
+      <div className="min-h-screen flex justify-center"></div>
 
       <div className="h-[5px] overflow-clip">
         <img src={strip} alt="" />
@@ -20,7 +16,9 @@ function Imperium() {
       <div className="h-[5px] overflow-clip">
         <img src={strip} alt="" />
       </div>
-      <Home />
+      <div className="mt-6">
+        <Home />
+      </div>
     </>
   );
 }

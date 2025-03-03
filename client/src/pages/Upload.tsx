@@ -154,7 +154,7 @@ function Upload({}: Props) {
         <div className="flex p-2 lg:justify-between align-middle w-full flex-wrap justify-center ">
           <div className="sm:mt-10 sm:ml-15 sm:mr-5">
             <img
-              className="w-[100px] h-[100px] object-cover rounded-full ring-[#c4ab88] ring-2 "
+              className="w-[100px] h-[100px] object-cover rounded-full ring-[#c4ab88]  ring-2 "
               src={user?.avatar}
               alt=""
             />
@@ -165,7 +165,7 @@ function Upload({}: Props) {
             </div>
           </div>
           {/* upload */}
-          <div className="bg-black opacity-80 lg:h-[94%] lg:w-[700px] h-[70%] w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] z-50">
+          <div className="bg-black opacity-80 lg:h-[94%] lg:w-[700px] h-[70%] w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] rounded-2xl z-50">
             {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="box flex justify-center flex-col">

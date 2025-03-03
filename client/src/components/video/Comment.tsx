@@ -73,7 +73,7 @@ function Comment({ video_id }: LikebtnProps) {
 
   return !loading ? (
     <>
-      <div className="w-full max-w-2xl p-2">
+      <div className=" max-w-2xl p-2">
         <form onSubmit={handleSubmit(onSubmit)} className="">
           <div className="border-b pb-4 mb-4 w-full">
             <input
@@ -96,10 +96,12 @@ function Comment({ video_id }: LikebtnProps) {
             </div>
           ) : (
             <div className="flex justify-end">
-              <Link to={"/login"}></Link>
-              <button className="rounded-xl px-4 py-1 bg-white hover:opacity-70 text-black font-semibold hover:duration-75">
-                login
-              </button>
+              <Link to={"/login"}>
+                {" "}
+                <button className="rounded-xl px-4 py-1 bg-white hover:opacity-70 text-black font-semibold hover:duration-75">
+                  login
+                </button>
+              </Link>
             </div>
           )}
         </form>
@@ -108,7 +110,7 @@ function Comment({ video_id }: LikebtnProps) {
           <div key={cmt.id} className="flex gap-3 mb-5 ">
             <Link to={`/profile/${cmt.user_UID}`}>
               <img
-                className="h-[60px] w-[60px] rounded-full"
+                className="h-[60px] w-[60px] rounded-full min-w-[60px]"
                 src={cmt.avatar}
                 alt=""
               />

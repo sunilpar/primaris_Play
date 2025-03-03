@@ -35,7 +35,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="flex flex-col justify-between min-h-screen sticky top-0   ">
+      <div className="flex flex-col justify-between min-h-screen sticky top-0 ">
         <div className="">
           <Link to={"/"}>
             <div className="mt-11 pb-6 flex justify-center scale-200">

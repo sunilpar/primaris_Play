@@ -75,7 +75,7 @@ export class VideoService {
     return null;
   }
 
-  async updateThumbnail(thumbnail_url: string | null, video_uid: string) {
+  async updateThumbnail(thumbnail_url: string, video_uid: string) {
     try {
       const data = {
         ID: video_uid,

@@ -99,6 +99,7 @@ func (app *application) thumbnailUpload(w http.ResponseWriter, r *http.Request) 
 func (app *application) changeThumbnail(w http.ResponseWriter, r *http.Request) {
 	var form VideoInsert
 	//might need to check if the current logged in user is the one making this request
+	//solved in front end
 	err := app.decodePostForm(r, &form)
 	if err != nil {
 		app.serverError(w, err)

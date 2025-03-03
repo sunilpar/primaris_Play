@@ -6,6 +6,7 @@ import subService from "@/backend/sub";
 import currentUser from "@/utils/Session.helper";
 import Preview from "@/components/video/Preview";
 import Playlist from "@/components/usersettings/Playlist";
+import Subscriberbtn from "@/components/video/Subscriberbtn";
 
 interface Video {
   id: string;
@@ -31,7 +32,7 @@ function Profile() {
   const [user, setUser] = useState<User | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [issubbed, setIssubbed] = useState<boolean | null>(null);
+  const [islogged, setIslogged] = useState<boolean | null>(null);
   const [count, setCount] = useState<number | null>(null);
 
   const [showvid, setShowvid] = useState<boolean>(true);
@@ -46,7 +47,6 @@ function Profile() {
       try {
         setLoading(true);
         const response = await videoService.getAllVideo(id);
-
         if (response && response.length > 0) {
           setVideos(response);
         }
@@ -68,6 +68,7 @@ function Profile() {
   async function getUser(userId: string) {
     try {
       const response = await authService.getUserById(userId);
+      setIslogged(currentUser.isLogged());
       if (response) {
         setUser(response);
       }
@@ -80,10 +81,6 @@ function Profile() {
     try {
       const response = await subService.getSubCount(channe_Id);
       setCount(response);
-      //   if (currentUser.isLogged == true) {
-      //     const response1 = await subService.ifSubbed(channe_Id);
-      //     setIssubbed(response1);
-      //   }
     } catch (error) {
       console.error("Error while fetching subscriptions:", error);
     }
@@ -117,12 +114,9 @@ function Profile() {
                   {count} subscribers
                 </div>
               </div>
-
-              <div className="subbtn ml-[19.4px] mt-[14.2px]">
-                <button className="rounded-xl text-black bg-amber-50 p-1.5 font-semibold">
-                  Subscribe
-                </button>
-              </div>
+              {islogged && (
+                <Subscriberbtn islogged={islogged} ch_id={id || ""} />
+              )}
             </div>
           </div>
         </div>

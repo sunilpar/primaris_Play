@@ -81,7 +81,7 @@ function History({}: Props) {
           </div>
 
           {/* upload */}
-          <div className="bg-[rgba(0,0,0,0.8)] p-5  mb-5 lg:w-[700px]  w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] z-50">
+          <div className="bg-[rgba(0,0,0,0.8)] p-5  mb-5 lg:w-[700px]  w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] rounded-2xl z-50">
             <div className="title font-bold mb-5 text-2xl">History</div>
             {history.length > 0 ? (
               <div className="flex flex-col gap-10 ">
