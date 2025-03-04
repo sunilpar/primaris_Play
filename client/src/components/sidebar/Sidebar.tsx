@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/h_logo.png";
 import currentUser from "@/utils/Session.helper";
 interface User {
   id: string;
@@ -21,7 +21,7 @@ function Sidebar() {
     try {
       const user = currentUser.getData();
       if (user) {
-        setLoggedin(true);
+        setLoading(true);
         setUser(user);
       } else {
         console.log(" user isn't logged in ");
@@ -35,7 +35,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="flex flex-col justify-between min-h-screen sticky top-0 ">
+      <div className="flex flex-col justify-between min-h-screen sticky top-0">
         <div className="">
           <Link to={"/"}>
             <div className="mt-11 pb-6 flex justify-center scale-200">
