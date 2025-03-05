@@ -92,7 +92,7 @@ const Signup: React.FC = () => {
         backgroundPosition: "center ",
       }}
     >
-      <div className="relative flex w-full max-w-3xl bg-[rgba(0,0,0,0.8)] rounded-xl p-10 ring-1 ring-[#c4ab88] ring-opacity-70  ">
+      <div className="relative flex w-full max-w-3xl bg-[rgba(0,0,0,0.8)] rounded-xl p-10 ring-1 ring-[#c4ab88] ring-opacity-70 font-secondary ">
         {/* Avatar Display */}
 
         <div className="mx-auto w-full">
@@ -107,7 +107,7 @@ const Signup: React.FC = () => {
               </div>
             )}
             <div className="">
-              <h2 className="text-center text-2xl font-bold leading-tight">
+              <h2 className="text-center text-2xl font-bold leading-tight font-display">
                 Create your account
               </h2>
               <p className="mt-2 text-center text-base">

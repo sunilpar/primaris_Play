@@ -76,12 +76,14 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
             </Link>
           </div>
           <div className="pl-2">
-            <div className="title text-left w-[314px]  text-xl font-semibold">
+            <div className="title text-left w-[314px]  text-xl font-semibold font-secondary">
               {video.title}
             </div>
             <div className="channel and date flex opacity-75 ">
               <Link to={`/profile/${user?.id}`}>
-                <div className="channel name text-left ">{user?.username}</div>
+                <div className="channel name text-left font-secondary">
+                  {user?.username}
+                </div>
               </Link>
 
               <div className="date pl-[20px] text-left ">

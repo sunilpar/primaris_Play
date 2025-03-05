@@ -83,7 +83,7 @@ function Search() {
 
   return !loading ? (
     <>
-      <div className="flex  flex-col justify-center">
+      <div className="flex  flex-col justify-center font-secondary">
         <div className="searchbar">
           <Searchbar />
         </div>

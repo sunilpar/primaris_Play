@@ -100,7 +100,7 @@ function Video() {
 
   return !loading ? (
     <>
-      <div className="video  flex flex-wrap justify-center gap-3 ">
+      <div className="video  flex flex-wrap justify-center gap-3 font-secondary">
         <div className="playback min-w-[400px] lg:w-[60%] sm:w-full mt-5">
           <div className="rounded-2xl ">
             <video

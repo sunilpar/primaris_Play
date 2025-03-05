@@ -95,7 +95,7 @@ const Popplaylist: React.FC<AddToPopPlaylistProps> = ({
   return !loading ? (
     <>
       <div
-        className="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-50"
+        className="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-50 font-secondary"
         onClick={onClose}
       >
         <div
@@ -111,7 +111,9 @@ const Popplaylist: React.FC<AddToPopPlaylistProps> = ({
             ✖
           </button>
 
-          <h2 className="text-lg font-bold mb-4">Add Video to Playlist</h2>
+          <h2 className="text-lg font-bold mb-4 font-display">
+            Add Video to Playlist
+          </h2>
           {/* map of playlist here */}
           <div>
             {playlist && playlist.length > 0 ? (

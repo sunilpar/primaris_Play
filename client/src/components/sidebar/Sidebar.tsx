@@ -15,14 +15,15 @@ interface User {
 function Sidebar() {
   const [Loggedin, setLoggedin] = useState<boolean>(false);
   const [ioading, setLoading] = useState<boolean>(true);
-
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     try {
       const user = currentUser.getData();
       if (user) {
         setLoading(true);
         setUser(user);
+        setLoggedin(true);
       } else {
         console.log(" user isn't logged in ");
       }

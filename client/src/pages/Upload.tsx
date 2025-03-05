@@ -144,7 +144,7 @@ function Upload({}: Props) {
   return !loading ? (
     <>
       <div
-        className="relative logo flex w-full h-[100%] rounded-2xl pt-10 sm:pt-0 overflow-hidden"
+        className="relative logo flex w-full h-[100%] rounded-2xl pt-10 sm:pt-0 overflow-hidden font-secondary"
         style={{
           backgroundImage: `url(${user?.coverimage})`,
           backgroundSize: "cover",
@@ -165,19 +165,36 @@ function Upload({}: Props) {
             </div>
           </div>
           {/* upload */}
-          <div className="bg-black opacity-80 lg:h-[94%] lg:w-[700px] h-[70%] w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] rounded-2xl z-50">
+          <div className="bg-black opacity-80 lg:h-[94%] lg:w-[700px] h-[70%] w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] p-5 rounded-2xl z-50 flex justify-center items-center">
             {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="box flex justify-center flex-col">
-                <div className="uploads flex flex-row flex-wrap justify-center">
-                  <input type="file" onChange={getvideofile} />
+                <div className="uploads flex flex-row flex-wrap justify-center  mb-5 ">
+                  <div>
+                    <input
+                      type="file"
+                      className=" lg:py-20 py-10 p-2 mr-5 text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88]"
+                      onChange={getvideofile}
+                    />
+                    <div className="font-bold">Upload the video</div>
+                  </div>
 
-                  <input type="file" onChange={getimgfile} />
+                  <div>
+                    <input
+                      type="file"
+                      className=" lg:py-20 py-10 p-2 mr-5  text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88]"
+                      onChange={getimgfile}
+                    />
+                    <div className="font-bold">Upload the thumbnail</div>
+                  </div>
                 </div>
 
                 <input
                   type="text"
-                  className="w-full p-2 text-white rounded-md  focus:outline-none focus:ring-0"
+                  className="w-full p-2 mb-5 text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88]"
                   placeholder="Title"
                   {...register("title", {
                     required: "title is required",
@@ -189,7 +206,8 @@ function Upload({}: Props) {
 
                 <input
                   type="text"
-                  className="w-full p-2 text-white rounded-md  focus:outline-none focus:ring-0"
+                  className="w-full p-2 mb-5 text-white bg-black rounded-md border border-gray-600 
+             focus:outline-none focus:ring-1 focus:ring-[#c4ab88] focus:border-[#c4ab88]"
                   placeholder=" Description"
                   {...register("description", {
                     required: "description is required",
@@ -199,7 +217,12 @@ function Upload({}: Props) {
                   <p className="text-red-600">{errors.description.message}</p>
                 )}
 
-                <button type="submit">upload</button>
+                <button
+                  className="w-full p-2 hover:bg-[#c4ab88] bg-[#786953] text-black font-bold rounded-md"
+                  type="submit"
+                >
+                  upload
+                </button>
               </div>
             </form>
           </div>

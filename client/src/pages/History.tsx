@@ -59,7 +59,7 @@ function History({}: Props) {
   return !loading ? (
     <>
       <div
-        className="relative  flex rounded-2xl pt-10 sm:pt-0 overflow-hidden"
+        className="relative  flex rounded-2xl pt-10 sm:pt-0 overflow-hidden h-screen"
         style={{
           backgroundImage: `url(${user?.coverimage})`,
           backgroundSize: "cover",

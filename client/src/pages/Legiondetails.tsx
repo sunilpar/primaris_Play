@@ -69,7 +69,10 @@ function Legiondetails({}: Props) {
   ];
   return (
     <>
-      <div style={{ height: "100%", position: "relative" }}>
+      <div
+        className="font-display"
+        style={{ height: "100%", position: "relative" }}
+      >
         <InfiniteMenu items={items} />
       </div>
     </>

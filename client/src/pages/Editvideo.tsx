@@ -104,7 +104,7 @@ function EditVideo() {
   ) : (
     <div className="flex justify-center">
       <div className="bg-black p-6  shadow-lg ring-2 rounded-2xl m-5 min-w-[300px] ring-[#c4ab88]">
-        <div className="flex justify-center mb-7 font-bold text-2xl text-[#c4ab88]">
+        <div className="flex justify-center mb-7 font-bold text-2xl text-[#c4ab88] font-display">
           Edit your video
         </div>
         {error && <p className="text-red-600">{error}</p>}

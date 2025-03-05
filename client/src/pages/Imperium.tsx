@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import strip from "../assets/strip.png";
 import Featured from "@/components/home/Featured";
 import Home from "./Home";
@@ -13,8 +13,21 @@ import sanguinius from "../assets/h_sanguinius.png";
 import currentUser from "@/utils/Session.helper";
 import Spinner from "@/components/skeleton/Spinner";
 import DecryptedText from "@/blocks/TextAnimations/DecryptedText/DecryptedText";
+import authService from "@/backend/auth";
+
+interface User {
+  id: string;
+  username: string;
+  fullname: string;
+  email: string;
+  avatar: string;
+  coverimage: string;
+  created: string;
+}
 
 function Imperium() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
   const [Loggedin, setLoggedin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -23,7 +36,7 @@ function Imperium() {
       const user = currentUser.getData();
       if (user) {
         setLoading(true);
-        setLoggedin(currentUser.isLogged);
+        setLoggedin(currentUser.isLogged());
       } else {
         console.log(" user isn't logged in ");
       }
@@ -33,6 +46,22 @@ function Imperium() {
       setLoading(false);
     }
   }, []);
+
+  async function loginastester() {
+    try {
+      const response = await authService.Login("test@gmail.com", "12345678");
+      console.log("Login response:", response);
+
+      if (response) {
+        setUser(response);
+        currentUser.putData(response);
+        navigate("/");
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+    }
+  }
 
   return !loading ? (
     <>
@@ -45,55 +74,80 @@ function Imperium() {
           loop
           muted
         />
-        <div className="z-13  w-full flex flex-col justify-center  ">
+        <div className="z-13  w-full flex flex-col justify-center font-display ">
           <div className=" flex justify-center mt-[92px] mb-[-102px]">
-            <div className="flex flex-col  font-bold text-2xl lg:text-5xl ">
+            <div className="flex flex-col font-bold text-2xl lg:text-5xl p-2 drop-shadow-lg text-[#fcd58d] ">
               <DecryptedText
                 text="They are the Defenders of Humanity. "
-                characters="111!XZK"
-                speed={20}
+                characters="ŀŋľþøŧĳ"
+                speed={30}
                 maxIterations={5}
                 sequential
                 revealDirection="start"
-                className="text-left"
-                animateOn="hover"
+                className="text-left  "
+                animateOn="view"
               />
               <DecryptedText
                 text="They are my Space Marines And "
-                characters="111!XZK"
-                speed={20}
+                characters="ŀŋľþøŧĳ"
+                speed={70}
                 maxIterations={5}
                 sequential
                 revealDirection="start"
                 className="text-left"
-                animateOn="hover"
+                animateOn="view"
               />
               <DecryptedText
-                text="They shall know no fear."
-                characters="111!XZK"
-                speed={20}
+                text="They Shall know no Fear."
+                characters="ŀŋľþøŧĳ"
+                speed={80}
                 maxIterations={5}
                 sequential
                 revealDirection="start"
                 className="text-left"
-                animateOn="hover"
+                animateOn="view"
               />
             </div>
           </div>
-          <div className=" mb-[-171px] mt-[125px] flex sm:justify-center justify-start w-full">
-            <button className=" p-2 hover:bg-[#c4ab88] bg-[#c1a479] text-black font-bold rounded-md">
-              Login
-            </button>
-            <button className=" p-2 ml-[100px] hover:bg-[#c4ab88] bg-[#c1a479] text-black font-bold rounded-md">
-              Login
-            </button>
-          </div>
+          {Loggedin ? (
+            <>
+              <div className="mb-[-171px] mt-[125px] flex justify-start w-full font-secondary">
+                <Link to={"/search/NA"}>
+                  <button className="px-3 py-2 lg:ml-[340px] ml-5 bg-black text-white font-bold rounded-md ring-2 ring-[#fcd58d] transition duration-300 ease-in-out transform hover:ring-3 hover:ring-[#fcd58d] hover:shadow-lg hover:shadow-yellow-500/50">
+                    search
+                  </button>
+                </Link>
+                <Link to={"/upload"}>
+                  <button className="px-3 py-2 ml-[16.8px] bg-black text-white font-bold rounded-md ring-2 ring-[#fcd58d] transition duration-300 ease-in-out transform hover:ring-3 hover:ring-[#fcd58d] hover:shadow-lg hover:shadow-yellow-500/50">
+                    Upload a video
+                  </button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mb-[-171px] mt-[125px] flex justify-start w-full font-secondary">
+                <Link to={"/login"}>
+                  <button className="px-3 py-2 lg:ml-[340px] ml-5 bg-black text-white font-bold rounded-md ring-2 ring-[#fcd58d] transition duration-300 ease-in-out transform hover:ring-3 hover:ring-[#fcd58d] hover:shadow-lg hover:shadow-yellow-500/50">
+                    Login
+                  </button>
+                </Link>
+
+                <button
+                  onClick={() => loginastester()}
+                  className="px-3 py-2 ml-[16.8px] bg-black text-white font-bold rounded-md ring-2 ring-[#fcd58d] transition duration-300 ease-in-out transform hover:ring-3 hover:ring-[#fcd58d] hover:shadow-lg hover:shadow-yellow-500/50"
+                >
+                  Login as Tester
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent z-12 "></div>
-        <div className="relative w-full  mx-auto overflow-hidden h-[700px] flex justify-center">
+        <div className="relative w-full  mx-auto overflow-hidden h-[700px] flex justify-center ">
           {/* Sanguinius */}
-          <div className="absolute left-[0.8px] top-[346px] z-0">
+          <div className="absolute left-[0.8px] top-[346px] z-0 ">
             <img
               className="w-[749px] h-[479px] min-w-[749px]"
               src={sanguinius}

@@ -34,13 +34,15 @@ const Login: React.FC = () => {
     try {
       const response = await authService.Login(data.email, data.password);
       console.log("Login response:", response);
-
-      if (response) {
-        setUser(response);
-        currentUser.putData(response);
-        navigate("/");
-        window.location.reload();
+      if (!response) {
+        setError("Login failed. No user data received.");
+        return;
       }
+
+      setUser(response);
+      currentUser.putData(response);
+      navigate("/");
+      window.location.reload();
     } catch (err) {
       console.error("Error during login:", err);
       setError("Login failed. Please check your credentials and try again.");
@@ -48,12 +50,12 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen">
+    <div className="flex items-center justify-center w-full h-screen font-secondary">
       <div className="mx-auto w-full max-w-lg rounded-xl  ring-1 ring-[#c4ab88] ring-opacity-70 p-10 ">
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]"></span>
         </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
+        <h2 className="text-center text-2xl font-bold leading-tight font-display">
           Login to your account
         </h2>
         <p className="mt-2 text-center text-base ">

@@ -50,7 +50,7 @@ function Featured() {
   ];
   return video.length > 0 ? (
     <>
-      <div className="min-h-screen flex flex-col justify-center p-2 mt-20  relative ">
+      <div className="min-h-screen flex flex-col justify-center p-2 mt-20  relative font-secondary ">
         <div className="flex justify-center flex-wrap items-center  z-10">
           <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
           <Localpreview name={"video2"} title={"Emperor's Angels"} />
