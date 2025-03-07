@@ -4,7 +4,7 @@ import strip from "../assets/strip.png";
 import Featured from "@/components/home/Featured";
 import Home from "./Home";
 import sitevideo from "../assets/site_hero_vid_mute.mp4";
-import emperor from "../assets/h_emperor.png";
+import emperor from "../assets/h_e_emperor.png";
 import lion from "../assets/h_Lion El’Jonson.png";
 import guilliman from "../assets/h_Guilliman.png";
 import Leman_Russ from "../assets/h_Leman Russ_e_y.png";
@@ -14,6 +14,9 @@ import currentUser from "@/utils/Session.helper";
 import Spinner from "@/components/skeleton/Spinner";
 import DecryptedText from "@/blocks/TextAnimations/DecryptedText/DecryptedText";
 import authService from "@/backend/auth";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface User {
   id: string;
@@ -30,6 +33,55 @@ function Imperium() {
   const [user, setUser] = useState<User | null>(null);
   const [Loggedin, setLoggedin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(".E", {
+      scrollTrigger: {
+        trigger: ".E",
+        scrub: 1,
+      },
+      scale: 1.5,
+      duration: 1,
+    });
+
+    gsap.to(".s", {
+      scrollTrigger: {
+        trigger: ".s",
+        scrub: 1,
+      },
+      y: -125,
+      duration: 1,
+    });
+
+    gsap.to(".l", {
+      scrollTrigger: {
+        trigger: ".l",
+        scrub: 1,
+      },
+      y: 50,
+      duration: 1,
+    });
+
+    gsap.to(".L", {
+      scrollTrigger: {
+        trigger: ".L",
+        scrub: 1,
+      },
+      y: -100,
+      duration: 1,
+    });
+
+    gsap.to(".g", {
+      scrollTrigger: {
+        trigger: ".g",
+        scrub: 1,
+      },
+      y: -125,
+      duration: 1,
+    });
+  });
 
   useEffect(() => {
     try {
@@ -98,7 +150,7 @@ function Imperium() {
                 animateOn="view"
               />
               <DecryptedText
-                text="They Shall know no Fear."
+                text="They Shall know No Fear."
                 characters="ŀŋľþøŧĳ"
                 speed={80}
                 maxIterations={5}
@@ -147,7 +199,7 @@ function Imperium() {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent z-12 "></div>
         <div className="relative w-full  mx-auto overflow-hidden h-[700px] flex justify-center ">
           {/* Sanguinius */}
-          <div className="absolute left-[0.8px] top-[346px] z-0 ">
+          <div className="absolute left-[0.8px] top-[346px] z-0 s">
             <img
               className="w-[749px] h-[479px] min-w-[749px]"
               src={sanguinius}
@@ -156,7 +208,7 @@ function Imperium() {
           </div>
 
           {/* Leman Russ */}
-          <div className="absolute left-[269px] top-[314px] z-1">
+          <div className="absolute left-[269px] top-[314px] z-1 l">
             <img
               className="w-[557px] h-[513px] max-w-[100vw]"
               src={Leman_Russ}
@@ -165,7 +217,7 @@ function Imperium() {
           </div>
 
           {/* Emperor */}
-          <div className="absolute left-[658px] top-[251px] z-0">
+          <div className="absolute left-[658px] top-[251px] z-0 E">
             <img
               className="w-[341px] h-[576px] max-w-[100vw]"
               src={emperor}
@@ -174,7 +226,7 @@ function Imperium() {
           </div>
 
           {/* Lion */}
-          <div className="absolute left-[915px] top-[146px] z-0">
+          <div className="absolute left-[915px] top-[146px] z-0 L">
             <img
               className="w-[359px] h-[682px] max-w-[100vw]"
               src={lion}
@@ -183,7 +235,7 @@ function Imperium() {
           </div>
 
           {/* Guilliman */}
-          <div className="absolute left-[1055px] top-[347px] z-0">
+          <div className="absolute left-[1055px] top-[347px] z-0 g">
             <img
               className="w-[615px] h-[480px] max-w-[100vw]"
               src={guilliman}
