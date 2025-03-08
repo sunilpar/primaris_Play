@@ -248,6 +248,7 @@ function Imperium() {
       <div className="h-[5px] overflow-clip z-20">
         <img src={strip} alt="" />
       </div>
+
       <Featured />
       <div className="h-[5px] overflow-clip">
         <img src={strip} alt="" />

@@ -74,7 +74,7 @@ function Historylist({ video_uid, disable }: Props) {
               </div>
               <div className="channel and date flex opacity-75 mb-10">
                 <div className="date pl-[20px] text-left ">
-                  {timeAgo(video?.created)}
+                  {timeAgo(video?.created || "")}
                 </div>
               </div>
               <div className="channel-and-date flex opacity-75">

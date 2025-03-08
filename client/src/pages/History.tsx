@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import currentUser from "@/utils/Session.helper";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import historyService from "@/backend/history";
 import Historylist from "@/components/usersettings/Historylist";
 import { v4 as uuidv4 } from "uuid";
@@ -15,15 +15,7 @@ interface User {
   coverimage: string;
   created: string;
 }
-interface Video {
-  id: string;
-  video_url: string;
-  thumbnail: string;
-  owner: string;
-  title: string;
-  description: string;
-  created: string;
-}
+
 interface History {
   video_UID: string;
 }
@@ -34,7 +26,6 @@ function History({}: Props) {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
   const [history, setHistory] = useState<History[]>([]);
-  const [video, setVideo] = useState<Video | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -59,7 +50,7 @@ function History({}: Props) {
   return !loading ? (
     <>
       <div
-        className="relative  flex rounded-2xl pt-10 sm:pt-0 overflow-hidden h-screen"
+        className="relative  flex rounded-2xl pt-10 sm:pt-0 overflow-hidden min-h-screen"
         style={{
           backgroundImage: `url(${user?.coverimage})`,
           backgroundSize: "cover",
@@ -80,8 +71,7 @@ function History({}: Props) {
             </div>
           </div>
 
-          {/* upload */}
-          <div className="bg-[rgba(0,0,0,0.8)] p-5  mb-5 lg:w-[700px]  w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] rounded-2xl z-50">
+          <div className="bg-[rgba(0,0,0,0.8)] p-5  mb-5 lg:w-[700px]  w-[300px] min-w-[340px] mt-10 ring-2 ring-[#c4ab88] rounded-2xl z-50 ">
             <div className="title font-bold mb-5 text-2xl">History</div>
             {history.length > 0 ? (
               <div className="flex flex-col gap-10 ">
