@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/h_logo.png";
 import currentUser from "@/utils/Session.helper";
@@ -14,14 +14,12 @@ interface User {
 
 function Sidebar() {
   const [Loggedin, setLoggedin] = useState<boolean>(false);
-  const [ioading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     try {
       const user = currentUser.getData();
       if (user) {
-        setLoading(true);
         setUser(user);
         setLoggedin(true);
       } else {
@@ -30,7 +28,6 @@ function Sidebar() {
     } catch (error) {
       console.error("Error fetching user data", error);
     } finally {
-      setLoading(false);
     }
   }, []);
 

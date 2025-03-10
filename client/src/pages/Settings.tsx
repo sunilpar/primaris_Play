@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import currentUser from "@/utils/Session.helper";
 import authService from "@/backend/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Avatarselection from "@/components/usersettings/Avatarselection";
 
 interface User {

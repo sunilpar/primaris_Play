@@ -82,7 +82,7 @@ function EditVideo() {
       }
 
       if (id) {
-        const response = await videoService.updateVideoDetails(
+        await videoService.updateVideoDetails(
           id,
           data.title,
           data.description,

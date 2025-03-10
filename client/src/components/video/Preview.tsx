@@ -22,7 +22,6 @@ interface User {
   created: string;
 }
 
-// needs skeleton
 const Preview: React.FC<{ video: Video }> = ({ video }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);

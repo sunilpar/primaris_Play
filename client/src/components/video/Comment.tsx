@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import commentService from "@/backend/comment";
 import currentUser from "@/utils/Session.helper";
 import { Link } from "react-router-dom";
@@ -26,11 +26,7 @@ function Comment({ video_id }: LikebtnProps) {
   const [error, setError] = useState<string>("");
   const [refreshKey, setRefreshKey] = useState<number>(0);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
 
   useEffect(() => {
     if (video_id) {

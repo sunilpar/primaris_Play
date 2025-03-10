@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Localpreview from "../video/Localpreview";
 import videoService from "@/backend/video";
 import Preview from "../video/Preview";
 import prime from "../../assets/f_prime.jpg";
-import sanguinius from "../../assets/F_sanguinius.png";
+
 interface Video {
   id: string;
   video_url: string;
@@ -16,7 +16,6 @@ interface Video {
 
 function Featured() {
   const [video, setVideo] = useState<Video[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -36,7 +35,6 @@ function Featured() {
       } catch (error) {
         console.error("Error fetching videos:", error);
       } finally {
-        setLoading(false);
       }
     })();
   }, []);
@@ -54,10 +52,8 @@ function Featured() {
       className="min-h-screen flex flex-col justify-center items-center p-2 mt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${prime})` }}
     >
-      {/* Overlay for better contrast */}
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
 
-      {/* Content */}
       <div className="relative z-10 flex justify-center flex-wrap items-center">
         <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
         <Localpreview name={"video2"} title={"Emperor's Angels"} />

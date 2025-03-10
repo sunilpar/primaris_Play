@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import currentUser from "@/utils/Session.helper";
 import videoService from "@/backend/video";
 import { useForm, SubmitHandler } from "react-hook-form";

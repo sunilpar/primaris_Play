@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import subService from "@/backend/sub";
 import { Link } from "react-router-dom";
 type Props = {
@@ -27,13 +27,13 @@ function Subscriberbtn({ islogged, ch_id }: Props) {
   async function addsub() {
     if (islogged) {
       setLoading(true);
-      const response = await subService.addSub(ch_id);
+      await subService.addSub(ch_id);
     }
   }
   async function rmsub() {
     if (islogged) {
       setLoading(true);
-      const response = await subService.rmsub(ch_id);
+      await subService.rmsub(ch_id);
     }
   }
   return (

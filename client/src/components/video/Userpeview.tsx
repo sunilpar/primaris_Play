@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface User {
@@ -12,8 +12,6 @@ interface User {
 }
 
 const Userpeview: React.FC<{ user: User }> = ({ user }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-
   return (
     <>
       <div className="logo like flex  justify-between mt-10">

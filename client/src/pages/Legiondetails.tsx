@@ -1,4 +1,3 @@
-import React from "react";
 import InfiniteMenu from "@/blocks/Components/InfiniteMenu/InfiniteMenu";
 
 type Props = {};

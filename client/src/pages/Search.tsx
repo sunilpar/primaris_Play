@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Searchbar from "@/components/sidebar/Searchbar";
 import { useParams } from "react-router-dom";
 import videoService from "@/backend/video.ts";

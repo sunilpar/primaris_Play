@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import playlistService from "@/backend/playlist";
 import currentUser from "@/utils/Session.helper";
-import { v4 as uuidv4 } from "uuid";
-import Spinner from "../skeleton/Spinner";
 
 interface AddToPopPlaylistProps {
   video_uid: string;

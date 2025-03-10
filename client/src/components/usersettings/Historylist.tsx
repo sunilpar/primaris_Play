@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import videoService from "@/backend/video";
 import { Link } from "react-router-dom";
 import historyService from "@/backend/history";

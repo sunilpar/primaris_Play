@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import playlistService from "@/backend/playlist";
 import currentUser from "@/utils/Session.helper";
 import Historylist from "./Historylist";

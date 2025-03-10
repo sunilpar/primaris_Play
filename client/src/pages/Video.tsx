@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import videoService from "@/backend/video";
 import authService from "@/backend/auth";
 import subService from "@/backend/sub";
 import historyService from "@/backend/history";
 import currentUser from "@/utils/Session.helper";
-import Popplaylist from "@/components/usersettings/Popplaylist";
 
 import Home from "./Home";
 import Subscriberbtn from "@/components/video/Subscriberbtn";
@@ -57,7 +56,7 @@ function Video() {
 
         var response = await videoService.getVideoById(id);
         if (loggeduser) {
-          const response1 = await historyService.addHistory(id);
+          await historyService.addHistory(id);
           setLoggeduser(currentUser.getData());
         }
 

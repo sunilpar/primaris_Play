@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import likesService from "@/backend/likes";
 import Popplaylist from "../usersettings/Popplaylist";
 interface LikebtnProps {
