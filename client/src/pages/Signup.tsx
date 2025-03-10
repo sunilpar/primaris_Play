@@ -41,7 +41,7 @@ const coverImages = [
 ];
 
 const Signup: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [_user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const {
     register,

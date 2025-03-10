@@ -30,7 +30,7 @@ interface User {
 
 function Imperium() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [_user, setUser] = useState<User | null>(null);
   const [Loggedin, setLoggedin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 

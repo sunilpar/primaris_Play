@@ -34,9 +34,10 @@ function Search() {
   const slug = useParams();
   var query = slug.query || "NA";
 
-  const reloadPage = (): void => {
-    window.location.reload();
-  };
+  // const reloadPage = (): void => {
+  //   window.location.reload();
+  // };
+  //this might be solutin to presentance bug in search
 
   useEffect(() => {
     (async () => {

@@ -20,7 +20,7 @@ interface User {
 }
 
 const Login: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [_user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const {
     register,

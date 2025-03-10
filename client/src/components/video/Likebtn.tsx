@@ -6,7 +6,7 @@ interface LikebtnProps {
   islogged: boolean;
 }
 
-function Likebtn({ video_id, islogged }: LikebtnProps) {
+function Likebtn({ video_id }: LikebtnProps) {
   const [isliked, setLike] = useState<boolean>(false);
   const [likecount, setLikecount] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

@@ -31,7 +31,7 @@ interface User {
   coverimage: string;
   created: string;
 }
-const message = "to like";
+
 function Video() {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ function Video() {
   const [video, setVideo] = useState<Video | null>(null);
 
   const [subcount, setSubcount] = useState<number | null>(null);
-  const [issubbed, setIssubbed] = useState<boolean>(false);
+  const [_issubbed, _setIssubbed] = useState<boolean>(false);
 
   const [islogged, setIslogged] = useState<boolean>(false);
   const [loggeduser, setLoggeduser] = useState<User | null>(null);

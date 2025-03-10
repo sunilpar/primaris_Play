@@ -40,7 +40,7 @@ export default function DecryptedText({
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isScrambling, setIsScrambling] = useState<boolean>(false);
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(
-    new Set(),
+    new Set()
   );
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
@@ -85,7 +85,7 @@ export default function DecryptedText({
 
     const shuffleText = (
       originalText: string,
-      currentRevealed: Set<number>,
+      currentRevealed: Set<number>
     ): string => {
       if (useOriginalCharsOnly) {
         const positions = originalText.split("").map((char, i) => ({
@@ -131,32 +131,34 @@ export default function DecryptedText({
 
     if (isHovering) {
       setIsScrambling(true);
-      interval = setInterval(() => {
-        setRevealedIndices((prevRevealed) => {
-          if (sequential) {
-            if (prevRevealed.size < text.length) {
-              const nextIndex = getNextIndex(prevRevealed);
-              const newRevealed = new Set(prevRevealed);
-              newRevealed.add(nextIndex);
-              setDisplayText(shuffleText(text, newRevealed));
-              return newRevealed;
+      interval = Number(
+        setInterval(() => {
+          setRevealedIndices((prevRevealed) => {
+            if (sequential) {
+              if (prevRevealed.size < text.length) {
+                const nextIndex = getNextIndex(prevRevealed);
+                const newRevealed = new Set(prevRevealed);
+                newRevealed.add(nextIndex);
+                setDisplayText(shuffleText(text, newRevealed));
+                return newRevealed;
+              } else {
+                clearInterval(interval);
+                setIsScrambling(false);
+                return prevRevealed;
+              }
             } else {
-              clearInterval(interval);
-              setIsScrambling(false);
+              setDisplayText(shuffleText(text, prevRevealed));
+              currentIteration++;
+              if (currentIteration >= maxIterations) {
+                clearInterval(interval);
+                setIsScrambling(false);
+                setDisplayText(text);
+              }
               return prevRevealed;
             }
-          } else {
-            setDisplayText(shuffleText(text, prevRevealed));
-            currentIteration++;
-            if (currentIteration >= maxIterations) {
-              clearInterval(interval);
-              setIsScrambling(false);
-              setDisplayText(text);
-            }
-            return prevRevealed;
-          }
-        });
-      }, speed);
+          });
+        }, speed)
+      );
     } else {
       setDisplayText(text);
       setRevealedIndices(new Set());
@@ -197,7 +199,7 @@ export default function DecryptedText({
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions,
+      observerOptions
     );
     const currentRef = containerRef.current;
     if (currentRef) {

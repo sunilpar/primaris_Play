@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import videoService from "@/backend/video.ts";
 import Preview from "@/components/video/Preview";
 import Spinner from "@/components/skeleton/Spinner";
+
 interface Video {
   id: string;
   video_url: string;
@@ -41,7 +42,7 @@ function Home() {
   ) : (
     <>
       <div className="flex flex-col justify-center items-center ">
-        <p>
+        <p className="">
           ..😪 backend is deployed in render.com so it may take some time to
           start the server😪...
         </p>

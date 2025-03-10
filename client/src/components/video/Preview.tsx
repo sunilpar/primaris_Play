@@ -26,7 +26,7 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [islogged, setIslogged] = useState<boolean>(false);
+  const [_islogged, setIslogged] = useState<boolean>(false);
   const [loggeduser, setLoggeduser] = useState<User | null>(null);
 
   useEffect(() => {

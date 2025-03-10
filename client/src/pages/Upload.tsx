@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import currentUser from "@/utils/Session.helper";
 import videoService from "@/backend/video";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Spinner from "@/components/skeleton/Spinner";
+import { ChangeEvent } from "react";
 interface User {
   id: string;
   username: string;
@@ -38,10 +39,10 @@ function Upload({}: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
-  const [video, setVideo] = useState<Video | null>(null);
+  const [_video, _setVideo] = useState<Video | null>(null);
 
-  const [Iurl, setIurl] = useState<string | null>(null);
-  const [Vurl, setVurl] = useState<string | null>(null);
+  const [_Iurl, setIurl] = useState<string | null>(null);
+  const [_Vurl, setVurl] = useState<string | null>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 

@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import currentUser from "@/utils/Session.helper";
 import { useNavigate } from "react-router-dom";
 
+interface User {
+  id: string;
+  username: string;
+  fullname: string;
+  email: string;
+  avatar: string;
+  coverimage: string;
+  created: string;
+}
+
 const avatars = [
   "https://res.cloudinary.com/daxgavwpd/image/upload/v1740633795/a_Ultramarine_kyslth.png",
   "https://res.cloudinary.com/daxgavwpd/image/upload/v1740633800/a_Black_Legions_phkry6.png",
@@ -30,18 +40,32 @@ function Avatarselection({
 }: AvatarselectionProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<any>(null);
+  const [_user, setUser] = useState<User | null>(null);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     setLoading(true);
+  //     const userData = currentUser.getData();
+  //     if (!userData) {
+  //       navigate("/");
+  //     }
+  //     setUser(userData);
+  //     setSelectedAvatar(userData.avatar);
+  //     setSelectedCoverImage(userData.coverimage);
+  //     setLoading(false);
+  //   })();
+  // }, [navigate, setSelectedAvatar, setSelectedCoverImage]);
   useEffect(() => {
     (async () => {
       setLoading(true);
       const userData = currentUser.getData();
       if (!userData) {
         navigate("/");
+      } else {
+        setUser(userData);
+        setSelectedAvatar(userData.avatar || avatars[0]);
+        setSelectedCoverImage(userData.coverimage || coverImages[0]);
       }
-      setUser(userData);
-      setSelectedAvatar(userData.avatar);
-      setSelectedCoverImage(userData.coverimage);
       setLoading(false);
     })();
   }, [navigate, setSelectedAvatar, setSelectedCoverImage]);

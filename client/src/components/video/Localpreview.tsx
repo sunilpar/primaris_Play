@@ -23,6 +23,8 @@ function Localpreview({ name, title }: LocalVideoProps) {
   var video = "";
   var Thumbnail = "";
   var Title = "";
+  if (video) {
+  }
   switch (name) {
     case "video1":
       (video = video1), (Thumbnail = thumb1), (Title = title);

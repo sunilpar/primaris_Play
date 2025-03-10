@@ -38,8 +38,8 @@ const Popplaylist: React.FC<AddToPopPlaylistProps> = ({
   const [loading1, setLoading1] = useState<boolean>(false);
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
 
-  const [islogged, setIslogged] = useState<boolean>(false);
-  const [loggeduser, setLoggeduser] = useState<User | null>(null);
+  const [_islogged, setIslogged] = useState<boolean>(false);
+  const [_loggeduser, setLoggeduser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -67,10 +67,7 @@ const Popplaylist: React.FC<AddToPopPlaylistProps> = ({
     (async () => {
       try {
         setLoading1(true);
-        const response = await playlistService.addVideo(
-          playlist_uid,
-          video_uid
-        );
+        await playlistService.addVideo(playlist_uid, video_uid);
         setLoading1(false);
       } catch (error) {}
     })();
@@ -80,11 +77,7 @@ const Popplaylist: React.FC<AddToPopPlaylistProps> = ({
     (async () => {
       try {
         setLoading1(true);
-        const response = await playlistService.createPlaylist(
-          video_uid,
-          name,
-          true
-        );
+        await playlistService.createPlaylist(video_uid, name, true);
         setLoading1(false);
       } catch (error) {}
     })();

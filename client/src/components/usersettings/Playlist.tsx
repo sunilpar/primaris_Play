@@ -28,8 +28,8 @@ function Playlist({ id }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
 
-  const [islogged, setIslogged] = useState<boolean>(false);
-  const [loggeduser, setLoggeduser] = useState<User | null>(null);
+  const [_islogged, setIslogged] = useState<boolean>(false);
+  const [_loggeduser, setLoggeduser] = useState<User | null>(null);
 
   useEffect(() => {
     (async () => {
