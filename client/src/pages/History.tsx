@@ -98,10 +98,6 @@ function History({}: Props) {
   ) : (
     <>
       <div className="flex justify-center items-center min-h-screen">
-        <p>
-          ..😪 backend is deployed in render.com so it may take some time to
-          start the server😪...
-        </p>
         <Spinner />
       </div>
     </>

@@ -103,7 +103,7 @@ func (app *application) requireAuth(next http.Handler) http.Handler {
 }
 
 var corsHandler = cors.New(cors.Options{
-	AllowedOrigins:   []string{"http://localhost:*"},
+	AllowedOrigins:   []string{"http://localhost:*", "*onrender.com"},
 	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
 	AllowedHeaders:   []string{"Content-Type", "Authorization"},
 	AllowCredentials: true,

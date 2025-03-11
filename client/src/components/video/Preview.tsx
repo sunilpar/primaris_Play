@@ -113,7 +113,13 @@ const Preview: React.FC<{ video: Video }> = ({ video }) => {
             <div className="title text-left w-[314px] bg-[#1b1b1d] text-xl font-semibold"></div>
             <div className="channel and date flex opacity-75 ">
               <div className="channel name text-left bg-[#1b1b1d] "></div>
-              <div className="date pl-[20px] h-[50px] w-[300px] "></div>
+              <div className="date pl-[20px] h-[50px] w-[300px] flex  justify-start ">
+                <div className=" pluse rounded-full mr-2 h-[50px] w-[50px] object-cover bg-[#1b1b1d]"></div>
+                <div className="flex flex-col">
+                  <div className="w-[224px] pluse bg-[#1b1b1d] h-[20px] rounded-2xl"></div>
+                  <div className="w-[196px] pluse bg-[#1b1b1d] h-[20px] rounded-2xl mt-2"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

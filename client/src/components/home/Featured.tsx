@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Localpreview from "../video/Localpreview";
 import videoService from "@/backend/video";
 import Preview from "../video/Preview";
-import prime from "../../assets/f_prime.jpg";
+import prime from "../../assets/f_heresy.png";
 
 interface Video {
   id: string;
@@ -48,11 +48,20 @@ function Featured() {
     "1294c203-4373-4023-8c4a-cf454cc029ec",
   ];
   return video.length > 0 ? (
+    // <div
+    //   className="min-h-screen flex flex-col justify-center items-center p-2 mt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
+    //   style={{ backgroundImage: `url(${prime})` }}
+    // >
     <div
-      className="min-h-screen flex flex-col justify-center items-center p-2 mt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${prime})` }}
+      className="min-h-screen flex flex-col justify-center items-center p-2 pt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${prime})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed", // Optional: keeps the image fixed while scrolling
+      }}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
+      <div className="absolute top-0 left-0 w-full h-full  bg-[rgba(0,0,0,0.8)] to-transparent z-0 "></div>
 
       <div className="relative z-10 flex justify-center flex-wrap items-center">
         <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
@@ -61,7 +70,7 @@ function Featured() {
         <Localpreview name={"video4"} title={"Ancient enemy"} />
       </div>
 
-      <div className="relative z-10 flex justify-center flex-wrap items-center mb-40">
+      <div className="relative  flex justify-center flex-wrap items-center mb-40">
         {video.map((vid) => (
           <Preview key={vid.id} video={vid} />
         ))}
