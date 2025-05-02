@@ -91,6 +91,11 @@ function Featured() {
           <Localpreview name={"video3"} title={"The heretic son Horus"} />
           <Localpreview name={"video4"} title={"Ancient enemy"} />
         </div>
+        <div className="flex flex-col justify-center items-center ">
+          <p className="">
+            ..These are local video you can while server loads..
+          </p>
+        </div>
       </div>
     </>
   );
