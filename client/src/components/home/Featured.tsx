@@ -48,17 +48,13 @@ function Featured() {
     "1294c203-4373-4023-8c4a-cf454cc029ec",
   ];
   return video.length > 0 ? (
-    // <div
-    //   className="min-h-screen flex flex-col justify-center items-center p-2 mt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
-    //   style={{ backgroundImage: `url(${prime})` }}
-    // >
     <div
       className="min-h-screen flex flex-col justify-center items-center p-2 pt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${prime})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed", // Optional: keeps the image fixed while scrolling
+        backgroundAttachment: "fixed",
       }}
     >
       <div className="absolute top-0 left-0 w-full h-full  bg-[rgba(0,0,0,0.8)] to-transparent z-0 "></div>
@@ -77,7 +73,26 @@ function Featured() {
       </div>
     </div>
   ) : (
-    <></>
+    <>
+      <div
+        className="min-h-screen flex flex-col justify-center items-center p-2 pt-20 relative font-secondary bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${prime})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="absolute top-0 left-0 w-full h-full  bg-[rgba(0,0,0,0.8)] to-transparent z-0 "></div>
+
+        <div className="relative z-10 flex justify-center flex-wrap items-center">
+          <Localpreview name={"video1"} title={"Guilliman to his Emperor"} />
+          <Localpreview name={"video2"} title={"Emperor's Angels"} />
+          <Localpreview name={"video3"} title={"The heretic son Horus"} />
+          <Localpreview name={"video4"} title={"Ancient enemy"} />
+        </div>
+      </div>
+    </>
   );
 }
 

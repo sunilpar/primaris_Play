@@ -42,10 +42,7 @@ function Home() {
   ) : (
     <>
       <div className="flex flex-col justify-center items-center ">
-        <p className="">
-          ..😪 backend is deployed in render.com so it may take some time to
-          start the server😪...
-        </p>
+        <p className="">waiting for backend</p>
         <Spinner />
       </div>
     </>
